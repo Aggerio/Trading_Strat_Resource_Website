@@ -1,0 +1,1487 @@
+[
+  {
+    "paper_ref": "2.2",
+    "name": "Covered Call",
+    "asset_class": "Options",
+    "category": "Single-Leg + Stock",
+    "strategy_type": "income",
+    "outlook": "Neutral to bullish",
+    "difficulty": "beginner",
+    "short_description": "Buy stock and write a call option against it to generate income from the premium while holding the underlying.",
+    "full_description": "A covered call involves holding a long position in the underlying stock while simultaneously selling (writing) a call option on the same stock. The trader collects the call premium, which provides a buffer against small declines in the stock price. In exchange, the trader caps the upside potential at the strike price plus the premium received. This strategy is popular among income-oriented investors who are willing to sacrifice some upside in exchange for immediate premium income. It performs best in flat to moderately bullish markets.",
+    "formulas": {
+      "payoff": "f_T = S_T - S_0 - (S_T - K)^+ + C",
+      "breakeven": "S_{BE} = S_0 - C",
+      "max_profit": "\\pi_{max} = K - S_0 + C",
+      "max_loss": "\\mathcal{L}_{max} = S_0 - C"
+    },
+    "max_profit": "Limited to strike price minus stock purchase price plus premium received",
+    "max_loss": "Substantial; stock can fall to zero minus premium received",
+    "breakeven": "Stock purchase price minus premium received",
+    "legs": [
+      {"type": "stock", "position": "long", "strike_description": "N/A", "moneyness": "ATM"},
+      {"type": "call", "position": "short", "strike_description": "K (typically OTM)", "moneyness": "OTM"}
+    ],
+    "related_strategies": ["2.3", "2.32", "2.33", "2.53"]
+  },
+  {
+    "paper_ref": "2.3",
+    "name": "Covered Put",
+    "asset_class": "Options",
+    "category": "Single-Leg + Stock",
+    "strategy_type": "income",
+    "outlook": "Neutral to bearish",
+    "difficulty": "beginner",
+    "short_description": "Short stock and write a put option against it to generate income while maintaining the short stock position.",
+    "full_description": "A covered put involves holding a short position in the underlying stock while simultaneously selling (writing) a put option on the same stock. The trader collects the put premium, which provides a buffer against small increases in the stock price. In exchange, the downside profit is capped at the strike price minus the premium received. This is the bearish counterpart of the covered call and is used by traders who have a neutral to moderately bearish outlook on the underlying. The strategy profits when the stock remains flat or declines moderately.",
+    "formulas": {
+      "payoff": "f_T = S_0 - S_T - (K - S_T)^+ + C",
+      "breakeven": "S_{BE} = S_0 + C",
+      "max_profit": "\\pi_{max} = S_0 - K + C",
+      "max_loss": "\\mathcal{L}_{max} = \\text{Unlimited (stock can rise indefinitely)}"
+    },
+    "max_profit": "Limited to stock sale price minus strike price plus premium received",
+    "max_loss": "Unlimited; stock can rise indefinitely beyond breakeven",
+    "breakeven": "Stock sale price plus premium received",
+    "legs": [
+      {"type": "stock", "position": "short", "strike_description": "N/A", "moneyness": "ATM"},
+      {"type": "put", "position": "short", "strike_description": "K (typically OTM)", "moneyness": "OTM"}
+    ],
+    "related_strategies": ["2.2", "2.32", "2.33"]
+  },
+  {
+    "paper_ref": "2.4",
+    "name": "Protective Put",
+    "asset_class": "Options",
+    "category": "Single-Leg + Stock",
+    "strategy_type": "hedging",
+    "outlook": "Bullish with downside protection",
+    "difficulty": "beginner",
+    "short_description": "Buy stock and buy an ATM or OTM put to hedge against downside risk while maintaining upside exposure.",
+    "full_description": "A protective put (also known as a married put) involves buying the underlying stock and simultaneously purchasing a put option with a strike price at or below the current stock price. The put acts as an insurance policy, limiting the maximum loss to the difference between the stock price and the strike price plus the premium paid. The trader retains full upside potential minus the cost of the put. This strategy is ideal for bullish investors who want to protect against sudden downside moves, such as before earnings announcements or during periods of elevated uncertainty.",
+    "formulas": {
+      "payoff": "f_T = S_T - S_0 + (K - S_T)^+ - D",
+      "breakeven": "S_{BE} = S_0 + D",
+      "max_profit": "\\pi_{max} = \\text{Unlimited}",
+      "max_loss": "\\mathcal{L}_{max} = S_0 - K + D"
+    },
+    "max_profit": "Unlimited; stock can rise indefinitely",
+    "max_loss": "Limited to stock purchase price minus put strike price plus premium paid",
+    "breakeven": "Stock purchase price plus premium paid for the put",
+    "legs": [
+      {"type": "stock", "position": "long", "strike_description": "N/A", "moneyness": "ATM"},
+      {"type": "put", "position": "long", "strike_description": "K ≤ S₀ (ATM or OTM)", "moneyness": "OTM"}
+    ],
+    "related_strategies": ["2.5", "2.53", "2.6"]
+  },
+  {
+    "paper_ref": "2.5",
+    "name": "Protective Call",
+    "asset_class": "Options",
+    "category": "Single-Leg + Stock",
+    "strategy_type": "hedging",
+    "outlook": "Bearish with upside protection",
+    "difficulty": "beginner",
+    "short_description": "Short stock and buy an ATM or OTM call to hedge against upside risk while maintaining downside exposure.",
+    "full_description": "A protective call involves holding a short stock position and simultaneously purchasing a call option with a strike price at or above the current stock price. The call acts as insurance against adverse upward price movements, capping the maximum loss at the difference between the strike price and the stock sale price plus the premium paid. The trader retains full downside profit potential minus the cost of the call. This is the bearish counterpart of the protective put and is used by short sellers who want to limit their risk during uncertain market conditions.",
+    "formulas": {
+      "payoff": "f_T = S_0 - S_T + (S_T - K)^+ - D",
+      "breakeven": "S_{BE} = S_0 - D",
+      "max_profit": "\\pi_{max} = S_0 - D",
+      "max_loss": "\\mathcal{L}_{max} = K - S_0 + D"
+    },
+    "max_profit": "Limited to stock sale price minus premium paid (stock can only fall to zero)",
+    "max_loss": "Limited to strike price minus stock sale price plus premium paid",
+    "breakeven": "Stock sale price minus premium paid for the call",
+    "legs": [
+      {"type": "stock", "position": "short", "strike_description": "N/A", "moneyness": "ATM"},
+      {"type": "call", "position": "long", "strike_description": "K ≥ S₀ (ATM or OTM)", "moneyness": "OTM"}
+    ],
+    "related_strategies": ["2.4", "2.8", "2.53"]
+  },
+  {
+    "paper_ref": "2.6",
+    "name": "Bull Call Spread",
+    "asset_class": "Options",
+    "category": "Vertical Spreads",
+    "strategy_type": "directional_bullish",
+    "outlook": "Moderately bullish",
+    "difficulty": "beginner",
+    "short_description": "Buy an ATM call and sell an OTM call to profit from a moderate rise in the underlying with limited risk.",
+    "full_description": "A bull call spread (also called a call debit spread) involves buying a call option at a lower strike price (K₁) and simultaneously selling a call option at a higher strike price (K₂), both with the same expiration. The strategy is established for a net debit. It profits when the underlying rises above the lower strike plus the net debit paid. The maximum profit is capped at the difference between strikes minus the net debit, achieved when the stock is at or above K₂ at expiration. This is one of the most common directional strategies for traders with a moderately bullish view.",
+    "formulas": {
+      "payoff": "f_T = (S_T - K_1)^+ - (S_T - K_2)^+ - D",
+      "breakeven": "S_{BE} = K_1 + D",
+      "max_profit": "\\pi_{max} = K_2 - K_1 - D",
+      "max_loss": "\\mathcal{L}_{max} = D"
+    },
+    "max_profit": "Limited to difference between strikes minus net debit paid",
+    "max_loss": "Limited to net debit paid",
+    "breakeven": "Lower strike plus net debit paid",
+    "legs": [
+      {"type": "call", "position": "long", "strike_description": "K₁ (lower, ATM)", "moneyness": "ATM"},
+      {"type": "call", "position": "short", "strike_description": "K₂ (higher, OTM)", "moneyness": "OTM"}
+    ],
+    "related_strategies": ["2.7", "2.8", "2.9"]
+  },
+  {
+    "paper_ref": "2.7",
+    "name": "Bull Put Spread",
+    "asset_class": "Options",
+    "category": "Vertical Spreads",
+    "strategy_type": "directional_bullish",
+    "outlook": "Moderately bullish",
+    "difficulty": "beginner",
+    "short_description": "Sell a higher-strike put and buy a lower-strike put to collect a net credit while profiting from a flat or rising market.",
+    "full_description": "A bull put spread (also called a put credit spread) involves selling a put option at a higher strike price (K₂) and buying a put option at a lower strike price (K₁), both with the same expiration. The strategy is established for a net credit. Maximum profit is the net credit received when the stock remains above K₂ at expiration. The maximum loss is limited to the difference between strikes minus the net credit. This strategy is popular among income-oriented traders who are moderately bullish and want to benefit from time decay and a stable or rising underlying price.",
+    "formulas": {
+      "payoff": "f_T = (K_1 - S_T)^+ - (K_2 - S_T)^+ + C",
+      "breakeven": "S_{BE} = K_2 - C",
+      "max_profit": "\\pi_{max} = C",
+      "max_loss": "\\mathcal{L}_{max} = K_2 - K_1 - C"
+    },
+    "max_profit": "Limited to net credit received",
+    "max_loss": "Limited to difference between strikes minus net credit received",
+    "breakeven": "Higher strike minus net credit received",
+    "legs": [
+      {"type": "put", "position": "long", "strike_description": "K₁ (lower, OTM)", "moneyness": "OTM"},
+      {"type": "put", "position": "short", "strike_description": "K₂ (higher, OTM)", "moneyness": "OTM"}
+    ],
+    "related_strategies": ["2.6", "2.8", "2.9"]
+  },
+  {
+    "paper_ref": "2.8",
+    "name": "Bear Call Spread",
+    "asset_class": "Options",
+    "category": "Vertical Spreads",
+    "strategy_type": "directional_bearish",
+    "outlook": "Moderately bearish",
+    "difficulty": "beginner",
+    "short_description": "Sell a lower-strike call and buy a higher-strike call to collect a net credit while profiting from a flat or declining market.",
+    "full_description": "A bear call spread (also called a call credit spread) involves selling a call option at a lower strike price (K₂) and buying a call option at a higher strike price (K₁), both with the same expiration. The strategy is established for a net credit. Maximum profit equals the net credit received when the stock stays below K₂ at expiration. The maximum loss is limited to the difference between strikes minus the credit received. This strategy benefits from time decay and is used by traders who expect the underlying to remain flat or decline moderately.",
+    "formulas": {
+      "payoff": "f_T = (S_T - K_1)^+ - (S_T - K_2)^+ + C",
+      "breakeven": "S_{BE} = K_2 + C",
+      "max_profit": "\\pi_{max} = C",
+      "max_loss": "\\mathcal{L}_{max} = K_1 - K_2 - C"
+    },
+    "max_profit": "Limited to net credit received",
+    "max_loss": "Limited to difference between strikes minus net credit received",
+    "breakeven": "Lower strike plus net credit received",
+    "legs": [
+      {"type": "call", "position": "long", "strike_description": "K₁ (higher, OTM)", "moneyness": "OTM"},
+      {"type": "call", "position": "short", "strike_description": "K₂ (lower, OTM)", "moneyness": "OTM"}
+    ],
+    "related_strategies": ["2.6", "2.7", "2.9"]
+  },
+  {
+    "paper_ref": "2.9",
+    "name": "Bear Put Spread",
+    "asset_class": "Options",
+    "category": "Vertical Spreads",
+    "strategy_type": "directional_bearish",
+    "outlook": "Moderately bearish",
+    "difficulty": "beginner",
+    "short_description": "Buy an ATM put and sell an OTM put to profit from a moderate decline in the underlying with limited risk.",
+    "full_description": "A bear put spread (also called a put debit spread) involves buying a put option at a higher strike price (K₁) and simultaneously selling a put option at a lower strike price (K₂), both with the same expiration. The strategy is established for a net debit. It profits when the underlying falls below the higher strike minus the net debit paid. The maximum profit is capped at the difference between strikes minus the net debit, achieved when the stock is at or below K₂ at expiration. This is the most common directional strategy for traders with a moderately bearish outlook on the underlying.",
+    "formulas": {
+      "payoff": "f_T = (K_1 - S_T)^+ - (K_2 - S_T)^+ - D",
+      "breakeven": "S_{BE} = K_1 - D",
+      "max_profit": "\\pi_{max} = K_1 - K_2 - D",
+      "max_loss": "\\mathcal{L}_{max} = D"
+    },
+    "max_profit": "Limited to difference between strikes minus net debit paid",
+    "max_loss": "Limited to net debit paid",
+    "breakeven": "Higher strike minus net debit paid",
+    "legs": [
+      {"type": "put", "position": "long", "strike_description": "K₁ (higher, ATM)", "moneyness": "ATM"},
+      {"type": "put", "position": "short", "strike_description": "K₂ (lower, OTM)", "moneyness": "OTM"}
+    ],
+    "related_strategies": ["2.6", "2.7", "2.8"]
+  },
+  {
+    "paper_ref": "2.10",
+    "name": "Long Synthetic Forward",
+    "asset_class": "Options",
+    "category": "Synthetic Positions",
+    "strategy_type": "directional_bullish",
+    "outlook": "Bullish",
+    "difficulty": "intermediate",
+    "short_description": "Buy an ATM call and sell an ATM put at the same strike to replicate the payoff of a long forward position.",
+    "full_description": "A long synthetic forward replicates the payoff profile of a long position in the underlying asset using options. The trader buys an at-the-money call and simultaneously sells an at-the-money put, both with the same strike price (K = S₀) and expiration. By put-call parity, this combination produces a payoff identical to owning the stock (less any net cost H). The strategy is used when the trader wants leveraged bullish exposure without directly purchasing the stock, or when margin requirements for options are more favorable than for direct stock ownership.",
+    "formulas": {
+      "payoff": "f_T = S_T - K - H",
+      "breakeven": "S_{BE} = K + H",
+      "max_profit": "\\pi_{max} = \\text{Unlimited}",
+      "max_loss": "\\mathcal{L}_{max} = K + H"
+    },
+    "max_profit": "Unlimited; stock can rise indefinitely",
+    "max_loss": "Substantial; equivalent to the stock falling to zero plus net cost",
+    "breakeven": "Strike price plus net cost of establishing the position",
+    "legs": [
+      {"type": "call", "position": "long", "strike_description": "K = S₀ (ATM)", "moneyness": "ATM"},
+      {"type": "put", "position": "short", "strike_description": "K = S₀ (ATM)", "moneyness": "ATM"}
+    ],
+    "related_strategies": ["2.11", "2.12", "2.13"]
+  },
+  {
+    "paper_ref": "2.11",
+    "name": "Short Synthetic Forward",
+    "asset_class": "Options",
+    "category": "Synthetic Positions",
+    "strategy_type": "directional_bearish",
+    "outlook": "Bearish",
+    "difficulty": "intermediate",
+    "short_description": "Buy an ATM put and sell an ATM call at the same strike to replicate the payoff of a short forward position.",
+    "full_description": "A short synthetic forward replicates the payoff profile of a short position in the underlying asset using options. The trader buys an at-the-money put and simultaneously sells an at-the-money call, both with the same strike price (K = S₀) and expiration. By put-call parity, this combination produces a payoff identical to shorting the stock (less any net cost H). The strategy is used when the trader wants leveraged bearish exposure without directly shorting the stock, or when borrowing shares is difficult or expensive.",
+    "formulas": {
+      "payoff": "f_T = K - S_T - H",
+      "breakeven": "S_{BE} = K - H",
+      "max_profit": "\\pi_{max} = K - H",
+      "max_loss": "\\mathcal{L}_{max} = \\text{Unlimited}"
+    },
+    "max_profit": "Limited to strike price minus net cost (stock can only fall to zero)",
+    "max_loss": "Unlimited; stock can rise indefinitely",
+    "breakeven": "Strike price minus net cost of establishing the position",
+    "legs": [
+      {"type": "put", "position": "long", "strike_description": "K = S₀ (ATM)", "moneyness": "ATM"},
+      {"type": "call", "position": "short", "strike_description": "K = S₀ (ATM)", "moneyness": "ATM"}
+    ],
+    "related_strategies": ["2.10", "2.12", "2.13"]
+  },
+  {
+    "paper_ref": "2.12",
+    "name": "Long Combo (Long Risk Reversal)",
+    "asset_class": "Options",
+    "category": "Synthetic Positions",
+    "strategy_type": "directional_bullish",
+    "outlook": "Bullish",
+    "difficulty": "intermediate",
+    "short_description": "Buy an OTM call and sell an OTM put to establish a leveraged bullish position with a gap between strikes.",
+    "full_description": "A long combo, also known as a long risk reversal, involves buying an out-of-the-money call at strike K₁ and selling an out-of-the-money put at strike K₂ (where K₂ < K₁). Unlike the synthetic forward, the strikes are not equal, creating a range between them where the position has no exposure. The strategy provides leveraged bullish exposure, profiting when the stock rises above the call strike. The risk is that if the stock falls below the put strike, losses accumulate as if the trader were long stock. It is often used as a low-cost or zero-cost way to express a directional bullish view.",
+    "formulas": {
+      "payoff": "f_T = (S_T - K_1)^+ - (K_2 - S_T)^+ - H",
+      "breakeven": "S_{BE} = K_1 + H \\text{ (if } H > 0\\text{)}",
+      "max_profit": "\\pi_{max} = \\text{Unlimited}",
+      "max_loss": "\\mathcal{L}_{max} = K_2 + H"
+    },
+    "max_profit": "Unlimited; stock can rise indefinitely",
+    "max_loss": "Substantial; stock can fall to zero, loss is put strike plus net cost",
+    "breakeven": "Call strike plus net cost (if debit) or put strike minus net credit (if credit)",
+    "legs": [
+      {"type": "call", "position": "long", "strike_description": "K₁ (OTM, above current price)", "moneyness": "OTM"},
+      {"type": "put", "position": "short", "strike_description": "K₂ (OTM, below current price)", "moneyness": "OTM"}
+    ],
+    "related_strategies": ["2.10", "2.11", "2.13"]
+  },
+  {
+    "paper_ref": "2.13",
+    "name": "Short Combo (Short Risk Reversal)",
+    "asset_class": "Options",
+    "category": "Synthetic Positions",
+    "strategy_type": "directional_bearish",
+    "outlook": "Bearish",
+    "difficulty": "intermediate",
+    "short_description": "Buy an OTM put and sell an OTM call to establish a leveraged bearish position with a gap between strikes.",
+    "full_description": "A short combo, also known as a short risk reversal, involves buying an out-of-the-money put at strike K₁ and selling an out-of-the-money call at strike K₂ (where K₁ < K₂). This is the bearish counterpart of the long combo. The strategy profits when the stock falls below the put strike. There is a range between the two strikes where the position has no exposure. If the stock rises above the call strike, losses accumulate as if the trader were short stock. The strategy is often used as a low-cost way to express a bearish view, with the premium from the sold call financing the purchased put.",
+    "formulas": {
+      "payoff": "f_T = (K_1 - S_T)^+ - (S_T - K_2)^+ - H",
+      "breakeven": "S_{BE} = K_2 - H \\text{ (if } H > 0\\text{)}",
+      "max_profit": "\\pi_{max} = K_1 + H",
+      "max_loss": "\\mathcal{L}_{max} = \\text{Unlimited}"
+    },
+    "max_profit": "Substantial; limited to put strike plus net credit (stock can only fall to zero)",
+    "max_loss": "Unlimited; stock can rise indefinitely",
+    "breakeven": "Call strike minus net credit (if credit) or put strike plus net debit (if debit)",
+    "legs": [
+      {"type": "put", "position": "long", "strike_description": "K₁ (OTM, below current price)", "moneyness": "OTM"},
+      {"type": "call", "position": "short", "strike_description": "K₂ (OTM, above current price)", "moneyness": "OTM"}
+    ],
+    "related_strategies": ["2.10", "2.11", "2.12"]
+  },
+  {
+    "paper_ref": "2.14",
+    "name": "Bull Call Ladder",
+    "asset_class": "Options",
+    "category": "Multi-Leg Spreads",
+    "strategy_type": "directional_bullish",
+    "outlook": "Conservative bullish; expects moderate rise",
+    "difficulty": "intermediate",
+    "short_description": "Buy an ATM call and sell two OTM calls at progressively higher strikes for a conservative bullish position.",
+    "full_description": "A bull call ladder involves buying one at-the-money call at K₁ and selling two out-of-the-money calls at higher strikes K₂ and K₃ (K₁ < K₂ < K₃). The sold calls partially or fully finance the purchased call, reducing the net cost. The strategy profits when the stock rises moderately to the region between K₂ and K₃. However, above K₃, the position begins to lose money because of the two short calls, creating unlimited upside risk. This strategy is suitable for traders who are conservatively bullish and believe the stock will rise but not beyond a certain level.",
+    "formulas": {
+      "payoff": "f_T = (S_T - K_1)^+ - (S_T - K_2)^+ - (S_T - K_3)^+ - D",
+      "breakeven": "S_{BE,1} = K_1 + D; \\quad S_{BE,2} = K_2 + K_3 - K_1 - D",
+      "max_profit": "\\pi_{max} = K_2 - K_1 - D",
+      "max_loss": "\\mathcal{L}_{max} = \\text{Unlimited above } S_{BE,2}"
+    },
+    "max_profit": "Limited to K₂ − K₁ minus net debit; achieved when stock is at K₂ at expiration",
+    "max_loss": "Unlimited above upper breakeven; limited to net debit on the downside",
+    "breakeven": "Two breakeven points: lower at K₁ + D; upper at K₂ + K₃ − K₁ − D",
+    "legs": [
+      {"type": "call", "position": "long", "strike_description": "K₁ (ATM)", "moneyness": "ATM"},
+      {"type": "call", "position": "short", "strike_description": "K₂ (OTM, higher)", "moneyness": "OTM"},
+      {"type": "call", "position": "short", "strike_description": "K₃ (OTM, highest)", "moneyness": "OTM"}
+    ],
+    "related_strategies": ["2.6", "2.15", "2.16", "2.17"]
+  },
+  {
+    "paper_ref": "2.15",
+    "name": "Bull Put Ladder",
+    "asset_class": "Options",
+    "category": "Multi-Leg Spreads",
+    "strategy_type": "directional_bullish",
+    "outlook": "Moderately bullish with downside hedge",
+    "difficulty": "intermediate",
+    "short_description": "Sell an ATM put and buy two OTM puts at progressively lower strikes to profit from a moderate rise with downside protection.",
+    "full_description": "A bull put ladder involves selling one at-the-money put at K₁ and buying two out-of-the-money puts at lower strikes K₂ and K₃ (K₃ < K₂ < K₁). The strategy generates a net credit from the premium differential. It profits when the stock stays above K₁ or rises. If the stock falls significantly below K₃, the two long puts provide a profit on a large downside move, giving the strategy a unique payoff profile. This makes it attractive for traders who are moderately bullish but want protection if the stock collapses.",
+    "formulas": {
+      "payoff": "f_T = -(K_1 - S_T)^+ + (K_2 - S_T)^+ + (K_3 - S_T)^+ + C",
+      "breakeven": "S_{BE,1} = K_1 - C; \\quad S_{BE,2} = K_2 + K_3 - K_1 + C",
+      "max_profit": "\\pi_{max} = C \\text{ (if stock above } K_1\\text{)}",
+      "max_loss": "\\mathcal{L}_{max} = K_1 - K_2 - C"
+    },
+    "max_profit": "Net credit received if stock stays above K₁; or large if stock collapses below K₃",
+    "max_loss": "Limited; occurs between K₂ and K₃ at K₁ − K₂ − credit",
+    "breakeven": "Two breakeven points: upper at K₁ − C; lower at K₂ + K₃ − K₁ + C",
+    "legs": [
+      {"type": "put", "position": "short", "strike_description": "K₁ (ATM)", "moneyness": "ATM"},
+      {"type": "put", "position": "long", "strike_description": "K₂ (OTM, lower)", "moneyness": "OTM"},
+      {"type": "put", "position": "long", "strike_description": "K₃ (OTM, lowest)", "moneyness": "OTM"}
+    ],
+    "related_strategies": ["2.7", "2.14", "2.16", "2.17"]
+  },
+  {
+    "paper_ref": "2.16",
+    "name": "Bear Call Ladder",
+    "asset_class": "Options",
+    "category": "Multi-Leg Spreads",
+    "strategy_type": "directional_bearish",
+    "outlook": "Moderately bearish with upside hedge",
+    "difficulty": "intermediate",
+    "short_description": "Sell an ATM call and buy two OTM calls at progressively higher strikes for a bearish view with upside protection.",
+    "full_description": "A bear call ladder involves selling one at-the-money call at K₁ and buying two out-of-the-money calls at higher strikes K₂ and K₃ (K₁ < K₂ < K₃). The strategy generates a net credit. It profits when the stock stays below K₁ or falls. If the stock rises significantly above K₃, the two long calls provide protection and even profit on a large upside move. This makes the strategy attractive for traders who are moderately bearish but want protection if the stock rallies sharply, creating an asymmetric risk profile.",
+    "formulas": {
+      "payoff": "f_T = -(S_T - K_1)^+ + (S_T - K_2)^+ + (S_T - K_3)^+ + C",
+      "breakeven": "S_{BE,1} = K_1 + C; \\quad S_{BE,2} = K_2 + K_3 - K_1 + C",
+      "max_profit": "\\pi_{max} = C \\text{ (if stock below } K_1\\text{)}",
+      "max_loss": "\\mathcal{L}_{max} = K_2 - K_1 - C"
+    },
+    "max_profit": "Net credit received if stock stays below K₁; or large if stock rallies above K₃",
+    "max_loss": "Limited; occurs between K₂ and K₃ at K₂ − K₁ − credit",
+    "breakeven": "Two breakeven points: lower at K₁ + C; upper at K₂ + K₃ − K₁ + C",
+    "legs": [
+      {"type": "call", "position": "short", "strike_description": "K₁ (ATM)", "moneyness": "ATM"},
+      {"type": "call", "position": "long", "strike_description": "K₂ (OTM, higher)", "moneyness": "OTM"},
+      {"type": "call", "position": "long", "strike_description": "K₃ (OTM, highest)", "moneyness": "OTM"}
+    ],
+    "related_strategies": ["2.8", "2.14", "2.15", "2.17"]
+  },
+  {
+    "paper_ref": "2.17",
+    "name": "Bear Put Ladder",
+    "asset_class": "Options",
+    "category": "Multi-Leg Spreads",
+    "strategy_type": "directional_bearish",
+    "outlook": "Conservative bearish; expects moderate decline",
+    "difficulty": "intermediate",
+    "short_description": "Buy an ATM put and sell two OTM puts at progressively lower strikes for a conservative bearish position.",
+    "full_description": "A bear put ladder involves buying one at-the-money put at K₁ and selling two out-of-the-money puts at lower strikes K₂ and K₃ (K₃ < K₂ < K₁). The sold puts partially finance the purchased put. The strategy profits when the stock declines moderately into the region between K₁ and K₂. However, below K₃, the position begins to lose money because of the two short puts, creating significant downside risk. This strategy suits traders who believe the stock will decline moderately but not collapse.",
+    "formulas": {
+      "payoff": "f_T = (K_1 - S_T)^+ - (K_2 - S_T)^+ - (K_3 - S_T)^+ - D",
+      "breakeven": "S_{BE,1} = K_1 - D; \\quad S_{BE,2} = K_2 + K_3 - K_1 + D",
+      "max_profit": "\\pi_{max} = K_1 - K_2 - D",
+      "max_loss": "\\mathcal{L}_{max} = \\text{Substantial below } S_{BE,2}"
+    },
+    "max_profit": "Limited to K₁ − K₂ minus net debit; achieved when stock is at K₂ at expiration",
+    "max_loss": "Substantial below lower breakeven; limited to net debit on the upside",
+    "breakeven": "Two breakeven points: upper at K₁ − D; lower at K₂ + K₃ − K₁ + D",
+    "legs": [
+      {"type": "put", "position": "long", "strike_description": "K₁ (ATM)", "moneyness": "ATM"},
+      {"type": "put", "position": "short", "strike_description": "K₂ (OTM, lower)", "moneyness": "OTM"},
+      {"type": "put", "position": "short", "strike_description": "K₃ (OTM, lowest)", "moneyness": "OTM"}
+    ],
+    "related_strategies": ["2.9", "2.14", "2.15", "2.16"]
+  },
+  {
+    "paper_ref": "2.18",
+    "name": "Calendar Call Spread",
+    "asset_class": "Options",
+    "category": "Multi-Leg Spreads",
+    "strategy_type": "neutral_sideways",
+    "outlook": "Neutral to bullish",
+    "difficulty": "intermediate",
+    "short_description": "Buy a longer-dated ATM call and sell a shorter-dated call at the same strike to profit from time decay differential.",
+    "full_description": "A calendar call spread (also called a horizontal or time spread) involves buying a call with a longer time to maturity (T') and simultaneously selling a call at the same strike price with a shorter time to maturity (T). Both options share the same strike, typically at-the-money. The strategy profits from the faster time decay of the shorter-dated option relative to the longer-dated one. The ideal scenario is for the stock to remain near the strike price as the short option expires, allowing the trader to collect the time decay differential. After the near-term option expires, the trader retains the longer-dated call with remaining time value.",
+    "formulas": {
+      "payoff": "f_T \\approx C(K, T' - T) - (S_T - K)^+ - D",
+      "breakeven": "\\text{Dependent on implied volatility and time remaining}",
+      "max_profit": "\\pi_{max} \\approx \\text{Near-term premium decay + remaining long call value}",
+      "max_loss": "\\mathcal{L}_{max} = D \\text{ (net debit paid)}"
+    },
+    "max_profit": "Achieved when stock is at the strike at near-term expiration; exact amount depends on IV",
+    "max_loss": "Limited to net debit paid",
+    "breakeven": "Approximately at the strike plus/minus the net debit, but depends on implied volatility",
+    "legs": [
+      {"type": "call", "position": "long", "strike_description": "K (ATM), longer expiration T'", "moneyness": "ATM"},
+      {"type": "call", "position": "short", "strike_description": "K (ATM), shorter expiration T", "moneyness": "ATM"}
+    ],
+    "related_strategies": ["2.19", "2.20", "2.21"]
+  },
+  {
+    "paper_ref": "2.19",
+    "name": "Calendar Put Spread",
+    "asset_class": "Options",
+    "category": "Multi-Leg Spreads",
+    "strategy_type": "neutral_sideways",
+    "outlook": "Neutral to bearish",
+    "difficulty": "intermediate",
+    "short_description": "Buy a longer-dated ATM put and sell a shorter-dated put at the same strike to profit from time decay differential.",
+    "full_description": "A calendar put spread involves buying a put with a longer time to maturity (T') and simultaneously selling a put at the same strike price with a shorter time to maturity (T). Both options share the same strike, typically at-the-money. Similar to the calendar call spread, it profits from the faster time decay of the shorter-dated option. The ideal scenario is for the stock to remain near the strike price as the short option expires. This strategy is preferred when the trader has a neutral to moderately bearish outlook and wants to benefit from the term structure of options premiums.",
+    "formulas": {
+      "payoff": "f_T \\approx P(K, T' - T) - (K - S_T)^+ - D",
+      "breakeven": "\\text{Dependent on implied volatility and time remaining}",
+      "max_profit": "\\pi_{max} \\approx \\text{Near-term premium decay + remaining long put value}",
+      "max_loss": "\\mathcal{L}_{max} = D \\text{ (net debit paid)}"
+    },
+    "max_profit": "Achieved when stock is at the strike at near-term expiration; exact amount depends on IV",
+    "max_loss": "Limited to net debit paid",
+    "breakeven": "Approximately at the strike plus/minus the net debit, but depends on implied volatility",
+    "legs": [
+      {"type": "put", "position": "long", "strike_description": "K (ATM), longer expiration T'", "moneyness": "ATM"},
+      {"type": "put", "position": "short", "strike_description": "K (ATM), shorter expiration T", "moneyness": "ATM"}
+    ],
+    "related_strategies": ["2.18", "2.20", "2.21"]
+  },
+  {
+    "paper_ref": "2.20",
+    "name": "Diagonal Call Spread",
+    "asset_class": "Options",
+    "category": "Multi-Leg Spreads",
+    "strategy_type": "directional_bullish",
+    "outlook": "Bullish",
+    "difficulty": "intermediate",
+    "short_description": "Buy a deep ITM long-dated call and sell an OTM short-dated call to combine directional and time decay benefits.",
+    "full_description": "A diagonal call spread combines elements of both vertical and calendar spreads. The trader buys a deep in-the-money call at a lower strike (K₁) with a longer expiration (T') and simultaneously sells an out-of-the-money call at a higher strike (K₂) with a shorter expiration (T). This provides bullish exposure through the long ITM call while generating income from the short OTM call. The deep ITM call behaves similarly to stock ownership due to its high delta, while the short call reduces cost basis. This strategy is sometimes called a \"poor man's covered call\" because it mimics a covered call using a LEAPS option instead of stock.",
+    "formulas": {
+      "payoff": "f_T \\approx C(K_1, T' - T) - (S_T - K_2)^+ - D",
+      "breakeven": "\\text{Dependent on IV; approximately } K_1 + D_{\\text{net}}",
+      "max_profit": "\\pi_{max} \\approx K_2 - K_1 + \\text{remaining time value} - D",
+      "max_loss": "\\mathcal{L}_{max} = D \\text{ (net debit paid)}"
+    },
+    "max_profit": "Approximately K₂ − K₁ minus net debit plus remaining time value of long call",
+    "max_loss": "Limited to net debit paid",
+    "breakeven": "Approximately K₁ plus net debit; depends on implied volatility",
+    "legs": [
+      {"type": "call", "position": "long", "strike_description": "K₁ (deep ITM), longer expiration T'", "moneyness": "ITM"},
+      {"type": "call", "position": "short", "strike_description": "K₂ (OTM), shorter expiration T", "moneyness": "OTM"}
+    ],
+    "related_strategies": ["2.18", "2.21", "2.6"]
+  },
+  {
+    "paper_ref": "2.21",
+    "name": "Diagonal Put Spread",
+    "asset_class": "Options",
+    "category": "Multi-Leg Spreads",
+    "strategy_type": "directional_bearish",
+    "outlook": "Bearish",
+    "difficulty": "intermediate",
+    "short_description": "Buy a deep ITM long-dated put and sell an OTM short-dated put to combine directional and time decay benefits.",
+    "full_description": "A diagonal put spread combines elements of both vertical and calendar spreads on the put side. The trader buys a deep in-the-money put at a higher strike (K₁) with a longer expiration (T') and simultaneously sells an out-of-the-money put at a lower strike (K₂) with a shorter expiration (T). This provides bearish exposure through the long ITM put while generating income from the short OTM put. The deep ITM put behaves similarly to a short stock position due to its high negative delta. This strategy is sometimes called a \"poor man's covered put.\"",
+    "formulas": {
+      "payoff": "f_T \\approx P(K_1, T' - T) - (K_2 - S_T)^+ - D",
+      "breakeven": "\\text{Dependent on IV; approximately } K_1 - D_{\\text{net}}",
+      "max_profit": "\\pi_{max} \\approx K_1 - K_2 + \\text{remaining time value} - D",
+      "max_loss": "\\mathcal{L}_{max} = D \\text{ (net debit paid)}"
+    },
+    "max_profit": "Approximately K₁ − K₂ minus net debit plus remaining time value of long put",
+    "max_loss": "Limited to net debit paid",
+    "breakeven": "Approximately K₁ minus net debit; depends on implied volatility",
+    "legs": [
+      {"type": "put", "position": "long", "strike_description": "K₁ (deep ITM), longer expiration T'", "moneyness": "ITM"},
+      {"type": "put", "position": "short", "strike_description": "K₂ (OTM), shorter expiration T", "moneyness": "OTM"}
+    ],
+    "related_strategies": ["2.19", "2.20", "2.9"]
+  },
+  {
+    "paper_ref": "2.22",
+    "name": "Long Straddle",
+    "asset_class": "Options",
+    "category": "Volatility Strategies",
+    "strategy_type": "neutral_volatility",
+    "outlook": "Neutral; expects high volatility",
+    "difficulty": "intermediate",
+    "short_description": "Buy an ATM call and an ATM put at the same strike to profit from a large move in either direction.",
+    "full_description": "A long straddle involves buying both an at-the-money call and an at-the-money put with the same strike price and expiration. The strategy profits when the underlying makes a large move in either direction, exceeding the total premium paid. It is a pure volatility play: the trader is indifferent to direction but expects the stock to move significantly. The maximum loss occurs when the stock finishes exactly at the strike price, in which case both options expire worthless and the trader loses the total premium paid. Long straddles are commonly used before major events such as earnings, FDA approvals, or economic releases.",
+    "formulas": {
+      "payoff": "f_T = (S_T - K)^+ + (K - S_T)^+ - D = |S_T - K| - D",
+      "breakeven": "S_{BE,1} = K - D; \\quad S_{BE,2} = K + D",
+      "max_profit": "\\pi_{max} = \\text{Unlimited}",
+      "max_loss": "\\mathcal{L}_{max} = D"
+    },
+    "max_profit": "Unlimited; stock can move indefinitely in either direction",
+    "max_loss": "Limited to total premium paid for both options",
+    "breakeven": "Two points: strike minus total premium and strike plus total premium",
+    "legs": [
+      {"type": "call", "position": "long", "strike_description": "K (ATM)", "moneyness": "ATM"},
+      {"type": "put", "position": "long", "strike_description": "K (ATM)", "moneyness": "ATM"}
+    ],
+    "related_strategies": ["2.23", "2.24", "2.25", "2.34", "2.35"]
+  },
+  {
+    "paper_ref": "2.23",
+    "name": "Long Strangle",
+    "asset_class": "Options",
+    "category": "Volatility Strategies",
+    "strategy_type": "neutral_volatility",
+    "outlook": "Neutral; expects high volatility",
+    "difficulty": "intermediate",
+    "short_description": "Buy an OTM call and an OTM put at different strikes to profit from a large move in either direction at lower cost than a straddle.",
+    "full_description": "A long strangle involves buying an out-of-the-money call at a higher strike (K₁) and an out-of-the-money put at a lower strike (K₂), both with the same expiration. Like the long straddle, the strategy profits from large moves in either direction, but requires a larger move to become profitable because the options start out-of-the-money. The advantage is a lower upfront cost compared to the straddle. The maximum loss occurs when the stock finishes between the two strikes, where both options expire worthless. This is a popular strategy for traders expecting significant volatility at a reduced premium outlay.",
+    "formulas": {
+      "payoff": "f_T = (S_T - K_1)^+ + (K_2 - S_T)^+ - D",
+      "breakeven": "S_{BE,1} = K_2 - D; \\quad S_{BE,2} = K_1 + D",
+      "max_profit": "\\pi_{max} = \\text{Unlimited}",
+      "max_loss": "\\mathcal{L}_{max} = D"
+    },
+    "max_profit": "Unlimited; stock can move indefinitely in either direction",
+    "max_loss": "Limited to total premium paid for both options",
+    "breakeven": "Two points: lower strike minus total premium and upper strike plus total premium",
+    "legs": [
+      {"type": "call", "position": "long", "strike_description": "K₁ (OTM, above current price)", "moneyness": "OTM"},
+      {"type": "put", "position": "long", "strike_description": "K₂ (OTM, below current price)", "moneyness": "OTM"}
+    ],
+    "related_strategies": ["2.22", "2.24", "2.26"]
+  },
+  {
+    "paper_ref": "2.24",
+    "name": "Long Guts",
+    "asset_class": "Options",
+    "category": "Volatility Strategies",
+    "strategy_type": "neutral_volatility",
+    "outlook": "Neutral; expects high volatility",
+    "difficulty": "intermediate",
+    "short_description": "Buy an ITM call and an ITM put at different strikes to profit from a large move, paying more premium but with guaranteed intrinsic value.",
+    "full_description": "A long guts strategy involves buying an in-the-money call at a lower strike (K₁) and an in-the-money put at a higher strike (K₂), both with the same expiration. Both options have intrinsic value at inception, making the total premium considerably higher than a straddle or strangle. However, the minimum value of the position at expiration is K₂ − K₁ (the difference between strikes), providing a floor. The strategy profits when the stock moves far enough in either direction to overcome the time value portion of the premium paid. It is functionally equivalent to a long strangle due to put-call parity relationships.",
+    "formulas": {
+      "payoff": "f_T = (S_T - K_1)^+ + (K_2 - S_T)^+ - D",
+      "breakeven": "S_{BE,1} = K_1 - (D - (K_2 - K_1)); \\quad S_{BE,2} = K_2 + (D - (K_2 - K_1))",
+      "max_profit": "\\pi_{max} = \\text{Unlimited}",
+      "max_loss": "\\mathcal{L}_{max} = D - (K_2 - K_1)"
+    },
+    "max_profit": "Unlimited; stock can move indefinitely in either direction",
+    "max_loss": "Limited to premium paid minus the intrinsic value floor (K₂ − K₁)",
+    "breakeven": "Two points: derived from the net time value paid beyond intrinsic",
+    "legs": [
+      {"type": "call", "position": "long", "strike_description": "K₁ (ITM, below current price)", "moneyness": "ITM"},
+      {"type": "put", "position": "long", "strike_description": "K₂ (ITM, above current price)", "moneyness": "ITM"}
+    ],
+    "related_strategies": ["2.22", "2.23", "2.27"]
+  },
+  {
+    "paper_ref": "2.25",
+    "name": "Short Straddle",
+    "asset_class": "Options",
+    "category": "Volatility Strategies",
+    "strategy_type": "neutral_sideways",
+    "outlook": "Neutral; expects low volatility",
+    "difficulty": "advanced",
+    "short_description": "Sell an ATM call and an ATM put at the same strike to collect maximum premium, profiting when the stock stays near the strike.",
+    "full_description": "A short straddle involves selling both an at-the-money call and an at-the-money put with the same strike price and expiration. The trader collects the combined premium and profits when the stock remains near the strike price. Maximum profit is the total premium received, achieved when the stock finishes exactly at the strike. The risk is unlimited on the upside and substantial on the downside, as the position loses money for every dollar the stock moves beyond the breakeven points. This is a high-risk, income-generating strategy suitable for experienced traders who expect very low volatility and are comfortable managing significant risk exposure.",
+    "formulas": {
+      "payoff": "f_T = -(S_T - K)^+ - (K - S_T)^+ + C = -|S_T - K| + C",
+      "breakeven": "S_{BE,1} = K - C; \\quad S_{BE,2} = K + C",
+      "max_profit": "\\pi_{max} = C",
+      "max_loss": "\\mathcal{L}_{max} = \\text{Unlimited}"
+    },
+    "max_profit": "Limited to total premium received",
+    "max_loss": "Unlimited; stock can move indefinitely in either direction",
+    "breakeven": "Two points: strike minus total premium and strike plus total premium",
+    "legs": [
+      {"type": "call", "position": "short", "strike_description": "K (ATM)", "moneyness": "ATM"},
+      {"type": "put", "position": "short", "strike_description": "K (ATM)", "moneyness": "ATM"}
+    ],
+    "related_strategies": ["2.22", "2.26", "2.27", "2.32"]
+  },
+  {
+    "paper_ref": "2.26",
+    "name": "Short Strangle",
+    "asset_class": "Options",
+    "category": "Volatility Strategies",
+    "strategy_type": "neutral_sideways",
+    "outlook": "Neutral; expects low volatility",
+    "difficulty": "advanced",
+    "short_description": "Sell an OTM call and an OTM put at different strikes to collect premium, profiting when the stock stays between the strikes.",
+    "full_description": "A short strangle involves selling an out-of-the-money call at a higher strike (K₁) and an out-of-the-money put at a lower strike (K₂), both with the same expiration. The trader collects the combined premium and profits when the stock remains between the two strikes. Compared to a short straddle, the short strangle provides a wider profitable range but collects less premium. Maximum profit is the total premium received, achieved when the stock finishes between the two strikes. The risk is unlimited on both sides. This strategy is commonly used by premium sellers in low-volatility environments.",
+    "formulas": {
+      "payoff": "f_T = -(S_T - K_1)^+ - (K_2 - S_T)^+ + C",
+      "breakeven": "S_{BE,1} = K_2 - C; \\quad S_{BE,2} = K_1 + C",
+      "max_profit": "\\pi_{max} = C",
+      "max_loss": "\\mathcal{L}_{max} = \\text{Unlimited}"
+    },
+    "max_profit": "Limited to total premium received",
+    "max_loss": "Unlimited; stock can move indefinitely in either direction",
+    "breakeven": "Two points: lower strike minus total premium and upper strike plus total premium",
+    "legs": [
+      {"type": "call", "position": "short", "strike_description": "K₁ (OTM, above current price)", "moneyness": "OTM"},
+      {"type": "put", "position": "short", "strike_description": "K₂ (OTM, below current price)", "moneyness": "OTM"}
+    ],
+    "related_strategies": ["2.23", "2.25", "2.27", "2.33"]
+  },
+  {
+    "paper_ref": "2.27",
+    "name": "Short Guts",
+    "asset_class": "Options",
+    "category": "Volatility Strategies",
+    "strategy_type": "neutral_sideways",
+    "outlook": "Neutral; expects low volatility",
+    "difficulty": "advanced",
+    "short_description": "Sell an ITM call and an ITM put at different strikes to collect large premium, profiting when the stock stays between strikes.",
+    "full_description": "A short guts strategy involves selling an in-the-money call at a lower strike (K₁) and an in-the-money put at a higher strike (K₂), both with the same expiration. The premium collected is larger than a short straddle or strangle because both options have intrinsic value. However, the minimum payout obligation is K₂ − K₁, so the effective maximum profit is the premium received minus (K₂ − K₁). The strategy profits when the stock stays between the strikes and the total premium exceeds the intrinsic payout. It is functionally equivalent to a short strangle and carries unlimited risk on both sides.",
+    "formulas": {
+      "payoff": "f_T = -(S_T - K_1)^+ - (K_2 - S_T)^+ + C",
+      "breakeven": "S_{BE,1} = K_1 - (C - (K_2 - K_1)); \\quad S_{BE,2} = K_2 + (C - (K_2 - K_1))",
+      "max_profit": "\\pi_{max} = C - (K_2 - K_1)",
+      "max_loss": "\\mathcal{L}_{max} = \\text{Unlimited}"
+    },
+    "max_profit": "Limited to premium received minus intrinsic value (K₂ − K₁)",
+    "max_loss": "Unlimited; stock can move indefinitely in either direction",
+    "breakeven": "Two points: derived from net time value received above intrinsic",
+    "legs": [
+      {"type": "call", "position": "short", "strike_description": "K₁ (ITM, below current price)", "moneyness": "ITM"},
+      {"type": "put", "position": "short", "strike_description": "K₂ (ITM, above current price)", "moneyness": "ITM"}
+    ],
+    "related_strategies": ["2.24", "2.25", "2.26"]
+  },
+  {
+    "paper_ref": "2.28",
+    "name": "Long Call Synthetic Straddle",
+    "asset_class": "Options",
+    "category": "Volatility Strategies",
+    "strategy_type": "neutral_volatility",
+    "outlook": "Neutral; expects high volatility",
+    "difficulty": "intermediate",
+    "short_description": "Short stock and buy two ATM calls to create a synthetic long straddle position using calls and stock.",
+    "full_description": "A long call synthetic straddle involves shorting the underlying stock and purchasing two at-the-money call options. This combination replicates the payoff of a long straddle. If the stock rises, the two calls gain more than the short stock loses (net long one call equivalent). If the stock falls, the short stock profits while the calls expire worthless, creating a profit equivalent to the downside of a straddle. This construction is useful when put options are illiquid or expensive, allowing the trader to achieve a volatility-long position using only calls and stock.",
+    "formulas": {
+      "payoff": "f_T = -S_T + S_0 + 2(S_T - K)^+ - D = |S_T - K| - H",
+      "breakeven": "S_{BE,1} = K - H; \\quad S_{BE,2} = K + H",
+      "max_profit": "\\pi_{max} = \\text{Unlimited}",
+      "max_loss": "\\mathcal{L}_{max} = H"
+    },
+    "max_profit": "Unlimited; stock can move significantly in either direction",
+    "max_loss": "Limited; occurs when stock finishes at the strike price",
+    "breakeven": "Two points: strike minus net cost and strike plus net cost",
+    "legs": [
+      {"type": "stock", "position": "short", "strike_description": "N/A", "moneyness": "ATM"},
+      {"type": "call", "position": "long", "strike_description": "K (ATM), quantity: 2", "moneyness": "ATM"}
+    ],
+    "related_strategies": ["2.22", "2.29", "2.30", "2.31"]
+  },
+  {
+    "paper_ref": "2.29",
+    "name": "Long Put Synthetic Straddle",
+    "asset_class": "Options",
+    "category": "Volatility Strategies",
+    "strategy_type": "neutral_volatility",
+    "outlook": "Neutral; expects high volatility",
+    "difficulty": "intermediate",
+    "short_description": "Buy stock and buy two ATM puts to create a synthetic long straddle position using puts and stock.",
+    "full_description": "A long put synthetic straddle involves buying the underlying stock and purchasing two at-the-money put options. This combination replicates the payoff of a long straddle. If the stock falls, the two puts gain more than the long stock loses (net long one put equivalent). If the stock rises, the long stock profits while the puts expire worthless, creating a profit equivalent to the upside of a straddle. This construction is useful when call options are illiquid or expensive, allowing the trader to achieve a volatility-long position using only puts and stock.",
+    "formulas": {
+      "payoff": "f_T = S_T - S_0 + 2(K - S_T)^+ - D = |S_T - K| - H",
+      "breakeven": "S_{BE,1} = K - H; \\quad S_{BE,2} = K + H",
+      "max_profit": "\\pi_{max} = \\text{Unlimited}",
+      "max_loss": "\\mathcal{L}_{max} = H"
+    },
+    "max_profit": "Unlimited; stock can move significantly in either direction",
+    "max_loss": "Limited; occurs when stock finishes at the strike price",
+    "breakeven": "Two points: strike minus net cost and strike plus net cost",
+    "legs": [
+      {"type": "stock", "position": "long", "strike_description": "N/A", "moneyness": "ATM"},
+      {"type": "put", "position": "long", "strike_description": "K (ATM), quantity: 2", "moneyness": "ATM"}
+    ],
+    "related_strategies": ["2.22", "2.28", "2.30", "2.31"]
+  },
+  {
+    "paper_ref": "2.30",
+    "name": "Short Call Synthetic Straddle",
+    "asset_class": "Options",
+    "category": "Volatility Strategies",
+    "strategy_type": "neutral_sideways",
+    "outlook": "Neutral; expects low volatility",
+    "difficulty": "advanced",
+    "short_description": "Buy stock and sell two ATM calls to create a synthetic short straddle position.",
+    "full_description": "A short call synthetic straddle involves buying the underlying stock and selling two at-the-money call options. This combination replicates the payoff of a short straddle. The position profits when the stock remains near the strike price, as the premium collected from the two calls exceeds any movement-related gains or losses. On the upside, one short call is covered by the stock while the other is naked, creating unlimited upside risk. On the downside, the stock loss is only partially offset by the premium collected. This strategy is used by experienced traders expecting low volatility who want to generate income from the overwritten call position.",
+    "formulas": {
+      "payoff": "f_T = S_T - S_0 - 2(S_T - K)^+ + C = -|S_T - K| + H",
+      "breakeven": "S_{BE,1} = K - H; \\quad S_{BE,2} = K + H",
+      "max_profit": "\\pi_{max} = H",
+      "max_loss": "\\mathcal{L}_{max} = \\text{Unlimited}"
+    },
+    "max_profit": "Limited; maximum when stock finishes at the strike price",
+    "max_loss": "Unlimited; stock can move significantly in either direction",
+    "breakeven": "Two points: strike minus net credit and strike plus net credit",
+    "legs": [
+      {"type": "stock", "position": "long", "strike_description": "N/A", "moneyness": "ATM"},
+      {"type": "call", "position": "short", "strike_description": "K (ATM), quantity: 2", "moneyness": "ATM"}
+    ],
+    "related_strategies": ["2.25", "2.28", "2.29", "2.31"]
+  },
+  {
+    "paper_ref": "2.31",
+    "name": "Short Put Synthetic Straddle",
+    "asset_class": "Options",
+    "category": "Volatility Strategies",
+    "strategy_type": "neutral_sideways",
+    "outlook": "Neutral; expects low volatility",
+    "difficulty": "advanced",
+    "short_description": "Short stock and sell two ATM puts to create a synthetic short straddle position.",
+    "full_description": "A short put synthetic straddle involves shorting the underlying stock and selling two at-the-money put options. This combination replicates the payoff of a short straddle. The position profits when the stock remains near the strike price, as the premium collected from the two puts exceeds any movement-related gains or losses. On the downside, one short put is covered by the short stock while the other is naked, creating substantial downside risk. On the upside, the short stock loss is only partially offset by the premium collected. This is an advanced strategy requiring careful risk management.",
+    "formulas": {
+      "payoff": "f_T = S_0 - S_T - 2(K - S_T)^+ + C = -|S_T - K| + H",
+      "breakeven": "S_{BE,1} = K - H; \\quad S_{BE,2} = K + H",
+      "max_profit": "\\pi_{max} = H",
+      "max_loss": "\\mathcal{L}_{max} = \\text{Unlimited}"
+    },
+    "max_profit": "Limited; maximum when stock finishes at the strike price",
+    "max_loss": "Unlimited; stock can move significantly in either direction",
+    "breakeven": "Two points: strike minus net credit and strike plus net credit",
+    "legs": [
+      {"type": "stock", "position": "short", "strike_description": "N/A", "moneyness": "ATM"},
+      {"type": "put", "position": "short", "strike_description": "K (ATM), quantity: 2", "moneyness": "ATM"}
+    ],
+    "related_strategies": ["2.25", "2.28", "2.29", "2.30"]
+  },
+  {
+    "paper_ref": "2.32",
+    "name": "Covered Short Straddle",
+    "asset_class": "Options",
+    "category": "Volatility Strategies",
+    "strategy_type": "income",
+    "outlook": "Moderately bullish; expects low volatility",
+    "difficulty": "advanced",
+    "short_description": "Combine a covered call with a written put at the same strike for enhanced income on a bullish view.",
+    "full_description": "A covered short straddle combines a covered call position with a short put at the same strike. The trader buys the underlying stock, sells a call, and simultaneously sells a put at the same strike K. The covered call component limits upside beyond K while the short put adds additional premium income but exposes the trader to downside risk from both the stock decline and the put obligation. This strategy generates more premium than a simple covered call but with significantly more risk. It is suitable for traders who are moderately bullish and confident the stock will remain near the strike price.",
+    "formulas": {
+      "payoff": "f_T = S_T - S_0 - (S_T - K)^+ - (K - S_T)^+ + C",
+      "breakeven": "S_{BE} = S_0 - C/2 \\text{ (approximate)}",
+      "max_profit": "\\pi_{max} = K - S_0 + C",
+      "max_loss": "\\mathcal{L}_{max} = S_0 + K - C"
+    },
+    "max_profit": "Limited to strike minus purchase price plus total premium received",
+    "max_loss": "Substantial; stock drops to zero plus put assignment obligation minus premium",
+    "breakeven": "Below the stock purchase price by approximately half the total premium received",
+    "legs": [
+      {"type": "stock", "position": "long", "strike_description": "N/A", "moneyness": "ATM"},
+      {"type": "call", "position": "short", "strike_description": "K (typically ATM)", "moneyness": "ATM"},
+      {"type": "put", "position": "short", "strike_description": "K (same as call)", "moneyness": "ATM"}
+    ],
+    "related_strategies": ["2.2", "2.25", "2.33"]
+  },
+  {
+    "paper_ref": "2.33",
+    "name": "Covered Short Strangle",
+    "asset_class": "Options",
+    "category": "Volatility Strategies",
+    "strategy_type": "income",
+    "outlook": "Moderately bullish; expects low volatility",
+    "difficulty": "advanced",
+    "short_description": "Combine a covered call with a written OTM put for income generation with a wider profit range than a covered straddle.",
+    "full_description": "A covered short strangle combines a covered call with a short out-of-the-money put at a lower strike. The trader buys the underlying stock, sells an OTM call at K₂, and simultaneously sells an OTM put at K₁ (K₁ < K₂). This generates premium from both options while maintaining stock ownership. Compared to the covered short straddle, the different strikes provide a wider range where the position is profitable. The short put adds income but creates additional downside risk if the stock falls below K₁. This strategy is popular among income-focused traders with a moderately bullish to neutral view.",
+    "formulas": {
+      "payoff": "f_T = S_T - S_0 - (S_T - K_2)^+ - (K_1 - S_T)^+ + C",
+      "breakeven": "S_{BE} \\approx S_0 - C \\text{ (adjusted for put strike)}",
+      "max_profit": "\\pi_{max} = K_2 - S_0 + C",
+      "max_loss": "\\mathcal{L}_{max} = S_0 + K_1 - C"
+    },
+    "max_profit": "Limited to call strike minus purchase price plus total premium received",
+    "max_loss": "Substantial; stock drops to zero plus put assignment at K₁ minus premium",
+    "breakeven": "Below purchase price, adjusted for total premium received",
+    "legs": [
+      {"type": "stock", "position": "long", "strike_description": "N/A", "moneyness": "ATM"},
+      {"type": "call", "position": "short", "strike_description": "K₂ (OTM, above current price)", "moneyness": "OTM"},
+      {"type": "put", "position": "short", "strike_description": "K₁ (OTM, below current price)", "moneyness": "OTM"}
+    ],
+    "related_strategies": ["2.2", "2.26", "2.32"]
+  },
+  {
+    "paper_ref": "2.34",
+    "name": "Strap",
+    "asset_class": "Options",
+    "category": "Volatility Strategies",
+    "strategy_type": "neutral_volatility",
+    "outlook": "Bullish volatility; expects large move, favoring upside",
+    "difficulty": "intermediate",
+    "short_description": "Buy two ATM calls and one ATM put to profit from a large move in either direction with a bullish bias.",
+    "full_description": "A strap involves buying two at-the-money calls and one at-the-money put, all with the same strike price and expiration. Like a straddle, it profits from large moves in either direction, but the extra call gives the position a bullish bias—the strategy profits more on an upside move than a downside move of the same magnitude. The total premium paid is higher than a straddle due to the additional call. The maximum loss occurs when the stock finishes exactly at the strike price. Straps are used when the trader expects significant volatility but believes an upside move is more likely than a downside move.",
+    "formulas": {
+      "payoff": "f_T = 2(S_T - K)^+ + (K - S_T)^+ - D",
+      "breakeven": "S_{BE,1} = K - D; \\quad S_{BE,2} = K + D/2",
+      "max_profit": "\\pi_{max} = \\text{Unlimited (faster on upside)}",
+      "max_loss": "\\mathcal{L}_{max} = D"
+    },
+    "max_profit": "Unlimited; profits at double rate on upside moves versus single rate on downside",
+    "max_loss": "Limited to total premium paid for all three options",
+    "breakeven": "Two points: strike minus total premium (downside) and strike plus half total premium (upside)",
+    "legs": [
+      {"type": "call", "position": "long", "strike_description": "K (ATM), quantity: 2", "moneyness": "ATM"},
+      {"type": "put", "position": "long", "strike_description": "K (ATM), quantity: 1", "moneyness": "ATM"}
+    ],
+    "related_strategies": ["2.22", "2.35"]
+  },
+  {
+    "paper_ref": "2.35",
+    "name": "Strip",
+    "asset_class": "Options",
+    "category": "Volatility Strategies",
+    "strategy_type": "neutral_volatility",
+    "outlook": "Bearish volatility; expects large move, favoring downside",
+    "difficulty": "intermediate",
+    "short_description": "Buy one ATM call and two ATM puts to profit from a large move in either direction with a bearish bias.",
+    "full_description": "A strip involves buying one at-the-money call and two at-the-money puts, all with the same strike price and expiration. Like a straddle, it profits from large moves in either direction, but the extra put gives the position a bearish bias—the strategy profits more on a downside move than an upside move of the same magnitude. The total premium paid is higher than a straddle due to the additional put. The maximum loss occurs when the stock finishes exactly at the strike price. Strips are used when the trader expects significant volatility but believes a downside move is more likely than an upside move.",
+    "formulas": {
+      "payoff": "f_T = (S_T - K)^+ + 2(K - S_T)^+ - D",
+      "breakeven": "S_{BE,1} = K - D/2; \\quad S_{BE,2} = K + D",
+      "max_profit": "\\pi_{max} = \\text{Unlimited (faster on downside)}",
+      "max_loss": "\\mathcal{L}_{max} = D"
+    },
+    "max_profit": "Unlimited on upside; profits at double rate on downside moves",
+    "max_loss": "Limited to total premium paid for all three options",
+    "breakeven": "Two points: strike minus half total premium (downside) and strike plus total premium (upside)",
+    "legs": [
+      {"type": "call", "position": "long", "strike_description": "K (ATM), quantity: 1", "moneyness": "ATM"},
+      {"type": "put", "position": "long", "strike_description": "K (ATM), quantity: 2", "moneyness": "ATM"}
+    ],
+    "related_strategies": ["2.22", "2.34"]
+  },
+  {
+    "paper_ref": "2.36",
+    "name": "Call Ratio Backspread",
+    "asset_class": "Options",
+    "category": "Ratio Strategies",
+    "strategy_type": "directional_bullish",
+    "outlook": "Strongly bullish; expects large upside move",
+    "difficulty": "advanced",
+    "short_description": "Sell fewer ATM calls and buy more OTM calls to create an asymmetric bullish position with unlimited upside.",
+    "full_description": "A call ratio backspread involves selling N_S at-the-money calls at strike K₁ and buying N_L out-of-the-money calls at a higher strike K₂, where N_L > N_S (typically a 1:2 ratio). The sale of the lower-strike calls helps finance the purchase of the extra higher-strike calls. The strategy profits significantly if the stock rallies strongly above K₂, as the extra long calls generate accelerating profits. If the stock declines, the position may result in a small profit or loss depending on the net credit/debit. The maximum loss occurs when the stock finishes at K₂ at expiration, where the short calls are fully in-the-money but the long calls are at-the-money.",
+    "formulas": {
+      "payoff": "f_T = -N_S(S_T - K_1)^+ + N_L(S_T - K_2)^+ \\pm H",
+      "breakeven": "S_{BE} = K_2 + \\frac{N_S(K_2 - K_1) \\pm H}{N_L - N_S}",
+      "max_profit": "\\pi_{max} = \\text{Unlimited}",
+      "max_loss": "\\mathcal{L}_{max} = N_S(K_2 - K_1) - H \\text{ (at } S_T = K_2\\text{)}"
+    },
+    "max_profit": "Unlimited; accelerating profits as stock rises above K₂",
+    "max_loss": "Limited; occurs at K₂ where short calls are ITM and long calls are ATM",
+    "breakeven": "Depends on ratio and net credit/debit; typically above K₂",
+    "legs": [
+      {"type": "call", "position": "short", "strike_description": "K₁ (ATM), quantity: N_S", "moneyness": "ATM"},
+      {"type": "call", "position": "long", "strike_description": "K₂ (OTM), quantity: N_L > N_S", "moneyness": "OTM"}
+    ],
+    "related_strategies": ["2.37", "2.38", "2.39"]
+  },
+  {
+    "paper_ref": "2.37",
+    "name": "Put Ratio Backspread",
+    "asset_class": "Options",
+    "category": "Ratio Strategies",
+    "strategy_type": "directional_bearish",
+    "outlook": "Strongly bearish; expects large downside move",
+    "difficulty": "advanced",
+    "short_description": "Sell fewer ATM puts and buy more OTM puts to create an asymmetric bearish position with large downside profit potential.",
+    "full_description": "A put ratio backspread involves selling N_S at-the-money puts at strike K₁ and buying N_L out-of-the-money puts at a lower strike K₂, where N_L > N_S (typically a 1:2 ratio). The sale of the higher-strike puts helps finance the purchase of the extra lower-strike puts. The strategy profits significantly if the stock drops sharply below K₂, as the extra long puts generate accelerating profits. If the stock rises, the position may result in a small profit or loss depending on the net credit/debit. The maximum loss occurs when the stock finishes at K₂ at expiration.",
+    "formulas": {
+      "payoff": "f_T = -N_S(K_1 - S_T)^+ + N_L(K_2 - S_T)^+ \\pm H",
+      "breakeven": "S_{BE} = K_2 - \\frac{N_S(K_1 - K_2) \\pm H}{N_L - N_S}",
+      "max_profit": "\\pi_{max} = N_L \\cdot K_2 - N_S(K_1 - K_2) \\pm H",
+      "max_loss": "\\mathcal{L}_{max} = N_S(K_1 - K_2) - H \\text{ (at } S_T = K_2\\text{)}"
+    },
+    "max_profit": "Substantial; accelerating profits as stock drops toward zero",
+    "max_loss": "Limited; occurs at K₂ where short puts are ITM and long puts are ATM",
+    "breakeven": "Depends on ratio and net credit/debit; typically below K₂",
+    "legs": [
+      {"type": "put", "position": "short", "strike_description": "K₁ (ATM), quantity: N_S", "moneyness": "ATM"},
+      {"type": "put", "position": "long", "strike_description": "K₂ (OTM), quantity: N_L > N_S", "moneyness": "OTM"}
+    ],
+    "related_strategies": ["2.36", "2.38", "2.39"]
+  },
+  {
+    "paper_ref": "2.38",
+    "name": "Ratio Call Spread",
+    "asset_class": "Options",
+    "category": "Ratio Strategies",
+    "strategy_type": "neutral_sideways",
+    "outlook": "Neutral to moderately bearish",
+    "difficulty": "advanced",
+    "short_description": "Buy fewer ITM calls and sell more ATM calls to generate income, profiting when the stock stays near or below the short strike.",
+    "full_description": "A ratio call spread involves buying N_L in-the-money calls at a lower strike K₂ and selling N_S at-the-money calls at a higher strike K₁, where N_S > N_L (typically a 1:2 ratio). The extra short calls generate premium income but create unlimited upside risk. The strategy profits when the stock stays near K₁ or declines, as the short calls expire worthless while the long call retains value. Maximum profit occurs at K₁ at expiration. This is the opposite of the call ratio backspread and is used by traders who expect the stock to remain range-bound or decline slightly.",
+    "formulas": {
+      "payoff": "f_T = N_L(S_T - K_2)^+ - N_S(S_T - K_1)^+ \\pm H",
+      "breakeven": "S_{BE} = K_1 + \\frac{N_L(K_1 - K_2) \\pm H}{N_S - N_L}",
+      "max_profit": "\\pi_{max} = N_L(K_1 - K_2) + H",
+      "max_loss": "\\mathcal{L}_{max} = \\text{Unlimited above breakeven}"
+    },
+    "max_profit": "Limited; achieved when stock is at the short strike at expiration",
+    "max_loss": "Unlimited above breakeven due to net short call exposure",
+    "breakeven": "Above the short strike; exact level depends on ratio and net credit/debit",
+    "legs": [
+      {"type": "call", "position": "long", "strike_description": "K₂ (ITM), quantity: N_L", "moneyness": "ITM"},
+      {"type": "call", "position": "short", "strike_description": "K₁ (ATM), quantity: N_S > N_L", "moneyness": "ATM"}
+    ],
+    "related_strategies": ["2.36", "2.37", "2.39"]
+  },
+  {
+    "paper_ref": "2.39",
+    "name": "Ratio Put Spread",
+    "asset_class": "Options",
+    "category": "Ratio Strategies",
+    "strategy_type": "neutral_sideways",
+    "outlook": "Neutral to moderately bullish",
+    "difficulty": "advanced",
+    "short_description": "Buy fewer ITM puts and sell more ATM puts to generate income, profiting when the stock stays near or above the short strike.",
+    "full_description": "A ratio put spread involves buying N_L in-the-money puts at a higher strike K₂ and selling N_S at-the-money puts at a lower strike K₁, where N_S > N_L (typically a 1:2 ratio). The extra short puts generate premium income but create substantial downside risk. The strategy profits when the stock stays near K₁ or rises, as the short puts expire worthless while the long put retains value. Maximum profit occurs at K₁ at expiration. This is the opposite of the put ratio backspread and is used by traders who expect the stock to remain range-bound or rise slightly.",
+    "formulas": {
+      "payoff": "f_T = N_L(K_2 - S_T)^+ - N_S(K_1 - S_T)^+ \\pm H",
+      "breakeven": "S_{BE} = K_1 - \\frac{N_L(K_2 - K_1) \\pm H}{N_S - N_L}",
+      "max_profit": "\\pi_{max} = N_L(K_2 - K_1) + H",
+      "max_loss": "\\mathcal{L}_{max} = \\text{Substantial below breakeven}"
+    },
+    "max_profit": "Limited; achieved when stock is at the short strike at expiration",
+    "max_loss": "Substantial below breakeven due to net short put exposure (stock can fall to zero)",
+    "breakeven": "Below the short strike; exact level depends on ratio and net credit/debit",
+    "legs": [
+      {"type": "put", "position": "long", "strike_description": "K₂ (ITM), quantity: N_L", "moneyness": "ITM"},
+      {"type": "put", "position": "short", "strike_description": "K₁ (ATM), quantity: N_S > N_L", "moneyness": "ATM"}
+    ],
+    "related_strategies": ["2.36", "2.37", "2.38"]
+  },
+  {
+    "paper_ref": "2.40",
+    "name": "Long Call Butterfly",
+    "asset_class": "Options",
+    "category": "Complex Structures",
+    "strategy_type": "neutral_sideways",
+    "outlook": "Neutral; expects stock to stay near middle strike",
+    "difficulty": "advanced",
+    "short_description": "Buy one low-strike call, sell two middle-strike calls, and buy one high-strike call to profit from low volatility near the center strike.",
+    "full_description": "A long call butterfly involves buying one call at a lower strike (K₁), selling two calls at a middle strike (K₂), and buying one call at a higher strike (K₃), where K₂ = (K₁ + K₃)/2 and all options share the same expiration. The strategy is established for a net debit. It profits when the stock remains near the middle strike K₂ at expiration, with maximum profit achieved exactly at K₂. The loss is limited to the net debit paid, occurring when the stock moves beyond either wing strike. This is a popular strategy for traders expecting a stock to trade in a narrow range with limited capital at risk.",
+    "formulas": {
+      "payoff": "f_T = (S_T - K_1)^+ - 2(S_T - K_2)^+ + (S_T - K_3)^+ - D",
+      "breakeven": "S_{BE,1} = K_1 + D; \\quad S_{BE,2} = K_3 - D",
+      "max_profit": "\\pi_{max} = K_2 - K_1 - D",
+      "max_loss": "\\mathcal{L}_{max} = D"
+    },
+    "max_profit": "Limited to middle strike minus lower strike minus net debit",
+    "max_loss": "Limited to net debit paid",
+    "breakeven": "Two points: lower strike plus net debit and upper strike minus net debit",
+    "legs": [
+      {"type": "call", "position": "long", "strike_description": "K₁ (lower, OTM)", "moneyness": "OTM"},
+      {"type": "call", "position": "short", "strike_description": "K₂ (middle, ATM), quantity: 2", "moneyness": "ATM"},
+      {"type": "call", "position": "long", "strike_description": "K₃ (upper, ITM)", "moneyness": "ITM"}
+    ],
+    "related_strategies": ["2.40.1", "2.41", "2.42", "2.44"]
+  },
+  {
+    "paper_ref": "2.40.1",
+    "name": "Modified Call Butterfly",
+    "asset_class": "Options",
+    "category": "Complex Structures",
+    "strategy_type": "neutral_sideways",
+    "outlook": "Sideways with bullish bias",
+    "difficulty": "advanced",
+    "short_description": "A call butterfly with non-equidistant strikes to skew the profit zone toward the upside.",
+    "full_description": "A modified call butterfly (also called a broken-wing butterfly) uses the same structure as a standard long call butterfly—long one call at K₁, short two calls at K₂, long one call at K₃—but the strikes are not equidistant. Typically K₂ − K₁ < K₃ − K₂, shifting the peak profit zone higher and giving the strategy a bullish bias. The asymmetric strike placement can be structured for a net credit on the downside, meaning if the stock drops below K₁, the trader keeps the credit. The maximum profit still occurs near K₂, but the payoff profile is skewed to favor a moderately bullish outcome.",
+    "formulas": {
+      "payoff": "f_T = (S_T - K_1)^+ - 2(S_T - K_2)^+ + (S_T - K_3)^+ \\pm H",
+      "breakeven": "S_{BE} = \\text{Asymmetric; depends on strike spacing}",
+      "max_profit": "\\pi_{max} = K_2 - K_1 \\pm H",
+      "max_loss": "\\mathcal{L}_{max} = (K_3 - K_2) - (K_2 - K_1) \\pm H"
+    },
+    "max_profit": "Limited; achieved near the middle strike, biased to the upside",
+    "max_loss": "Limited; asymmetric based on the wider wing",
+    "breakeven": "Asymmetric breakeven points determined by strike spacing and net credit/debit",
+    "legs": [
+      {"type": "call", "position": "long", "strike_description": "K₁ (lower)", "moneyness": "OTM"},
+      {"type": "call", "position": "short", "strike_description": "K₂ (middle, closer to K₁), quantity: 2", "moneyness": "ATM"},
+      {"type": "call", "position": "long", "strike_description": "K₃ (upper, farther from K₂)", "moneyness": "OTM"}
+    ],
+    "related_strategies": ["2.40", "2.41.1"]
+  },
+  {
+    "paper_ref": "2.41",
+    "name": "Long Put Butterfly",
+    "asset_class": "Options",
+    "category": "Complex Structures",
+    "strategy_type": "neutral_sideways",
+    "outlook": "Neutral; expects stock to stay near middle strike",
+    "difficulty": "advanced",
+    "short_description": "Buy one low-strike put, sell two middle-strike puts, and buy one high-strike put to profit from low volatility near the center strike.",
+    "full_description": "A long put butterfly involves buying one put at a lower strike (K₁), selling two puts at a middle strike (K₂), and buying one put at a higher strike (K₃), where K₂ = (K₁ + K₃)/2 and all options share the same expiration. The strategy is established for a net debit. It is functionally equivalent to the long call butterfly due to put-call parity and profits when the stock remains near K₂ at expiration. Maximum profit is achieved exactly at K₂, and loss is limited to the net debit paid. This construction may be preferred when put options offer better liquidity or pricing.",
+    "formulas": {
+      "payoff": "f_T = (K_1 - S_T)^+ - 2(K_2 - S_T)^+ + (K_3 - S_T)^+ - D",
+      "breakeven": "S_{BE,1} = K_1 + D; \\quad S_{BE,2} = K_3 - D",
+      "max_profit": "\\pi_{max} = K_2 - K_1 - D",
+      "max_loss": "\\mathcal{L}_{max} = D"
+    },
+    "max_profit": "Limited to middle strike minus lower strike minus net debit",
+    "max_loss": "Limited to net debit paid",
+    "breakeven": "Two points: lower strike plus net debit and upper strike minus net debit",
+    "legs": [
+      {"type": "put", "position": "long", "strike_description": "K₁ (lower, OTM)", "moneyness": "OTM"},
+      {"type": "put", "position": "short", "strike_description": "K₂ (middle, ATM), quantity: 2", "moneyness": "ATM"},
+      {"type": "put", "position": "long", "strike_description": "K₃ (upper, ITM)", "moneyness": "ITM"}
+    ],
+    "related_strategies": ["2.40", "2.41.1", "2.43", "2.44"]
+  },
+  {
+    "paper_ref": "2.41.1",
+    "name": "Modified Put Butterfly",
+    "asset_class": "Options",
+    "category": "Complex Structures",
+    "strategy_type": "neutral_sideways",
+    "outlook": "Sideways with bullish bias",
+    "difficulty": "advanced",
+    "short_description": "A put butterfly with non-equidistant strikes to skew the profit zone, often for a net credit on one side.",
+    "full_description": "A modified put butterfly (also called a broken-wing put butterfly) uses the same structure as a standard long put butterfly—long one put at K₁, short two puts at K₂, long one put at K₃—but with non-equidistant strikes. The asymmetric spacing skews the payoff profile, often resulting in a net credit on one side (typically the upside) while increasing risk on the other. This allows the trader to create a position that profits if the stock stays near K₂ but does not lose money if it moves in the favorable direction. It is commonly used to express a directionally biased, range-bound view.",
+    "formulas": {
+      "payoff": "f_T = (K_1 - S_T)^+ - 2(K_2 - S_T)^+ + (K_3 - S_T)^+ \\pm H",
+      "breakeven": "S_{BE} = \\text{Asymmetric; depends on strike spacing}",
+      "max_profit": "\\pi_{max} = K_2 - K_1 \\pm H",
+      "max_loss": "\\mathcal{L}_{max} = (K_3 - K_2) - (K_2 - K_1) \\pm H"
+    },
+    "max_profit": "Limited; achieved near the middle strike, biased toward the wider wing side",
+    "max_loss": "Limited; asymmetric based on the wider wing",
+    "breakeven": "Asymmetric breakeven points determined by strike spacing and net credit/debit",
+    "legs": [
+      {"type": "put", "position": "long", "strike_description": "K₁ (lower)", "moneyness": "OTM"},
+      {"type": "put", "position": "short", "strike_description": "K₂ (middle), quantity: 2", "moneyness": "ATM"},
+      {"type": "put", "position": "long", "strike_description": "K₃ (upper, farther from K₂)", "moneyness": "ITM"}
+    ],
+    "related_strategies": ["2.40.1", "2.41"]
+  },
+  {
+    "paper_ref": "2.42",
+    "name": "Short Call Butterfly",
+    "asset_class": "Options",
+    "category": "Complex Structures",
+    "strategy_type": "neutral_volatility",
+    "outlook": "Neutral; expects stock to move away from middle strike",
+    "difficulty": "advanced",
+    "short_description": "Sell one low-strike call, buy two middle-strike calls, and sell one high-strike call to profit from a large move away from the center.",
+    "full_description": "A short call butterfly is the inverse of the long call butterfly. It involves selling one call at a lower strike (K₁), buying two calls at a middle strike (K₂), and selling one call at a higher strike (K₃). The strategy is established for a net credit. It profits when the stock moves significantly away from the middle strike in either direction, making it a volatility strategy. Maximum profit equals the net credit received, achieved when the stock is below K₁ or above K₃. The maximum loss occurs at K₂, where it equals K₂ − K₁ minus the credit. This strategy is less common but useful for traders expecting a breakout.",
+    "formulas": {
+      "payoff": "f_T = -(S_T - K_1)^+ + 2(S_T - K_2)^+ - (S_T - K_3)^+ + C",
+      "breakeven": "S_{BE,1} = K_1 + C; \\quad S_{BE,2} = K_3 - C",
+      "max_profit": "\\pi_{max} = C",
+      "max_loss": "\\mathcal{L}_{max} = K_2 - K_1 - C"
+    },
+    "max_profit": "Limited to net credit received",
+    "max_loss": "Limited to middle minus lower strike minus credit received",
+    "breakeven": "Two points: lower strike plus credit and upper strike minus credit",
+    "legs": [
+      {"type": "call", "position": "short", "strike_description": "K₁ (lower, ITM)", "moneyness": "ITM"},
+      {"type": "call", "position": "long", "strike_description": "K₂ (middle, ATM), quantity: 2", "moneyness": "ATM"},
+      {"type": "call", "position": "short", "strike_description": "K₃ (upper, OTM)", "moneyness": "OTM"}
+    ],
+    "related_strategies": ["2.40", "2.43", "2.45"]
+  },
+  {
+    "paper_ref": "2.43",
+    "name": "Short Put Butterfly",
+    "asset_class": "Options",
+    "category": "Complex Structures",
+    "strategy_type": "neutral_volatility",
+    "outlook": "Neutral; expects stock to move away from middle strike",
+    "difficulty": "advanced",
+    "short_description": "Sell one low-strike put, buy two middle-strike puts, and sell one high-strike put to profit from a large move away from the center.",
+    "full_description": "A short put butterfly is the inverse of the long put butterfly. It involves selling one put at a lower strike (K₁), buying two puts at a middle strike (K₂), and selling one put at a higher strike (K₃). The strategy is established for a net credit. It profits when the stock moves significantly away from the middle strike in either direction. Maximum profit equals the net credit received, achieved when the stock is below K₁ or above K₃. The maximum loss occurs at K₂. This is functionally equivalent to the short call butterfly due to put-call parity and is used when the trader expects increased volatility.",
+    "formulas": {
+      "payoff": "f_T = -(K_1 - S_T)^+ + 2(K_2 - S_T)^+ - (K_3 - S_T)^+ + C",
+      "breakeven": "S_{BE,1} = K_1 + C; \\quad S_{BE,2} = K_3 - C",
+      "max_profit": "\\pi_{max} = C",
+      "max_loss": "\\mathcal{L}_{max} = K_2 - K_1 - C"
+    },
+    "max_profit": "Limited to net credit received",
+    "max_loss": "Limited to middle minus lower strike minus credit received",
+    "breakeven": "Two points: lower strike plus credit and upper strike minus credit",
+    "legs": [
+      {"type": "put", "position": "short", "strike_description": "K₁ (lower, ITM)", "moneyness": "ITM"},
+      {"type": "put", "position": "long", "strike_description": "K₂ (middle, ATM), quantity: 2", "moneyness": "ATM"},
+      {"type": "put", "position": "short", "strike_description": "K₃ (upper, OTM)", "moneyness": "OTM"}
+    ],
+    "related_strategies": ["2.41", "2.42", "2.45"]
+  },
+  {
+    "paper_ref": "2.44",
+    "name": "Long Iron Butterfly",
+    "asset_class": "Options",
+    "category": "Complex Structures",
+    "strategy_type": "neutral_sideways",
+    "outlook": "Neutral; expects stock to stay near middle strike",
+    "difficulty": "advanced",
+    "short_description": "Buy an OTM put, sell an ATM put and call at the same strike, and buy an OTM call to profit from low volatility with defined risk.",
+    "full_description": "A long iron butterfly combines a bull put spread and a bear call spread sharing the same short strike. The trader buys an out-of-the-money put at K₁, sells both an at-the-money put and call at K₂, and buys an out-of-the-money call at K₃. It is established for a net credit. The strategy profits when the stock stays near K₂, with maximum profit equal to the net credit received at exactly K₂. Losses are limited on both sides by the long wings. The iron butterfly is equivalent to a long butterfly spread but constructed with both puts and calls, which can be advantageous for margin efficiency.",
+    "formulas": {
+      "payoff": "f_T = (K_1 - S_T)^+ - (K_2 - S_T)^+ - (S_T - K_2)^+ + (S_T - K_3)^+ + C",
+      "breakeven": "S_{BE,1} = K_2 - C; \\quad S_{BE,2} = K_2 + C",
+      "max_profit": "\\pi_{max} = C",
+      "max_loss": "\\mathcal{L}_{max} = K_2 - K_1 - C"
+    },
+    "max_profit": "Limited to net credit received",
+    "max_loss": "Limited to wing width minus net credit",
+    "breakeven": "Two points: middle strike minus credit and middle strike plus credit",
+    "legs": [
+      {"type": "put", "position": "long", "strike_description": "K₁ (lower, OTM)", "moneyness": "OTM"},
+      {"type": "put", "position": "short", "strike_description": "K₂ (middle, ATM)", "moneyness": "ATM"},
+      {"type": "call", "position": "short", "strike_description": "K₂ (middle, ATM)", "moneyness": "ATM"},
+      {"type": "call", "position": "long", "strike_description": "K₃ (upper, OTM)", "moneyness": "OTM"}
+    ],
+    "related_strategies": ["2.40", "2.41", "2.45", "2.50"]
+  },
+  {
+    "paper_ref": "2.45",
+    "name": "Short Iron Butterfly",
+    "asset_class": "Options",
+    "category": "Complex Structures",
+    "strategy_type": "neutral_volatility",
+    "outlook": "Neutral; expects stock to move significantly from middle strike",
+    "difficulty": "advanced",
+    "short_description": "Sell an OTM put, buy an ATM put and call at the same strike, and sell an OTM call to profit from high volatility with defined risk.",
+    "full_description": "A short iron butterfly is the inverse of the long iron butterfly. The trader sells an out-of-the-money put at K₁, buys both an at-the-money put and call at K₂, and sells an out-of-the-money call at K₃. It is established for a net debit. The strategy profits when the stock moves significantly away from K₂ in either direction. Maximum profit is limited to the wing width minus the net debit paid, achieved when the stock is below K₁ or above K₃. This is a defined-risk volatility strategy and the equivalent of a short butterfly constructed with mixed options.",
+    "formulas": {
+      "payoff": "f_T = -(K_1 - S_T)^+ + (K_2 - S_T)^+ + (S_T - K_2)^+ - (S_T - K_3)^+ - D",
+      "breakeven": "S_{BE,1} = K_2 - D; \\quad S_{BE,2} = K_2 + D",
+      "max_profit": "\\pi_{max} = K_2 - K_1 - D",
+      "max_loss": "\\mathcal{L}_{max} = D"
+    },
+    "max_profit": "Limited to wing width minus net debit paid",
+    "max_loss": "Limited to net debit paid",
+    "breakeven": "Two points: middle strike minus debit and middle strike plus debit",
+    "legs": [
+      {"type": "put", "position": "short", "strike_description": "K₁ (lower, OTM)", "moneyness": "OTM"},
+      {"type": "put", "position": "long", "strike_description": "K₂ (middle, ATM)", "moneyness": "ATM"},
+      {"type": "call", "position": "long", "strike_description": "K₂ (middle, ATM)", "moneyness": "ATM"},
+      {"type": "call", "position": "short", "strike_description": "K₃ (upper, OTM)", "moneyness": "OTM"}
+    ],
+    "related_strategies": ["2.42", "2.43", "2.44", "2.51"]
+  },
+  {
+    "paper_ref": "2.46",
+    "name": "Long Call Condor",
+    "asset_class": "Options",
+    "category": "Complex Structures",
+    "strategy_type": "neutral_sideways",
+    "outlook": "Neutral; expects stock to stay within a range",
+    "difficulty": "advanced",
+    "short_description": "Buy one ITM call, sell one slightly ITM call, sell one slightly OTM call, and buy one OTM call to profit from range-bound trading.",
+    "full_description": "A long call condor involves buying one in-the-money call at K₁, selling one call at K₂, selling another call at K₃, and buying one call at K₄, where K₁ < K₂ < K₃ < K₄ and the spacing is typically equal. The strategy is established for a net debit. It is similar to a butterfly but with a wider profit zone between K₂ and K₃ instead of a single peak. Maximum profit is achieved when the stock remains between K₂ and K₃ at expiration. The maximum loss is limited to the net debit paid. This is a conservative, defined-risk strategy for traders expecting low volatility within a specific range.",
+    "formulas": {
+      "payoff": "f_T = (S_T - K_1)^+ - (S_T - K_2)^+ - (S_T - K_3)^+ + (S_T - K_4)^+ - D",
+      "breakeven": "S_{BE,1} = K_1 + D; \\quad S_{BE,2} = K_4 - D",
+      "max_profit": "\\pi_{max} = K_2 - K_1 - D",
+      "max_loss": "\\mathcal{L}_{max} = D"
+    },
+    "max_profit": "Limited to width of lower spread minus net debit",
+    "max_loss": "Limited to net debit paid",
+    "breakeven": "Two points: lowest strike plus debit and highest strike minus debit",
+    "legs": [
+      {"type": "call", "position": "long", "strike_description": "K₁ (lowest, ITM)", "moneyness": "ITM"},
+      {"type": "call", "position": "short", "strike_description": "K₂ (lower-middle, ITM)", "moneyness": "ITM"},
+      {"type": "call", "position": "short", "strike_description": "K₃ (upper-middle, OTM)", "moneyness": "OTM"},
+      {"type": "call", "position": "long", "strike_description": "K₄ (highest, OTM)", "moneyness": "OTM"}
+    ],
+    "related_strategies": ["2.47", "2.48", "2.50"]
+  },
+  {
+    "paper_ref": "2.47",
+    "name": "Long Put Condor",
+    "asset_class": "Options",
+    "category": "Complex Structures",
+    "strategy_type": "neutral_sideways",
+    "outlook": "Neutral; expects stock to stay within a range",
+    "difficulty": "advanced",
+    "short_description": "Buy one OTM put, sell one slightly OTM put, sell one slightly ITM put, and buy one ITM put to profit from range-bound trading.",
+    "full_description": "A long put condor involves buying one out-of-the-money put at K₁, selling one put at K₂, selling another put at K₃, and buying one in-the-money put at K₄, where K₁ < K₂ < K₃ < K₄. The strategy is established for a net debit and is functionally equivalent to the long call condor due to put-call parity. Maximum profit is achieved when the stock remains between K₂ and K₃ at expiration. The payoff profile features a flat profit plateau between the two middle strikes and limited loss outside the wings. This construction may be preferred based on put option liquidity and pricing.",
+    "formulas": {
+      "payoff": "f_T = (K_1 - S_T)^+ - (K_2 - S_T)^+ - (K_3 - S_T)^+ + (K_4 - S_T)^+ - D",
+      "breakeven": "S_{BE,1} = K_1 + D; \\quad S_{BE,2} = K_4 - D",
+      "max_profit": "\\pi_{max} = K_2 - K_1 - D",
+      "max_loss": "\\mathcal{L}_{max} = D"
+    },
+    "max_profit": "Limited to width of lower spread minus net debit",
+    "max_loss": "Limited to net debit paid",
+    "breakeven": "Two points: lowest strike plus debit and highest strike minus debit",
+    "legs": [
+      {"type": "put", "position": "long", "strike_description": "K₁ (lowest, OTM)", "moneyness": "OTM"},
+      {"type": "put", "position": "short", "strike_description": "K₂ (lower-middle, OTM)", "moneyness": "OTM"},
+      {"type": "put", "position": "short", "strike_description": "K₃ (upper-middle, ITM)", "moneyness": "ITM"},
+      {"type": "put", "position": "long", "strike_description": "K₄ (highest, ITM)", "moneyness": "ITM"}
+    ],
+    "related_strategies": ["2.46", "2.49", "2.50"]
+  },
+  {
+    "paper_ref": "2.48",
+    "name": "Short Call Condor",
+    "asset_class": "Options",
+    "category": "Complex Structures",
+    "strategy_type": "neutral_volatility",
+    "outlook": "Neutral; expects stock to move outside a range",
+    "difficulty": "advanced",
+    "short_description": "Sell one ITM call, buy one slightly ITM call, buy one slightly OTM call, and sell one OTM call to profit from a breakout.",
+    "full_description": "A short call condor is the inverse of the long call condor. It involves selling one call at K₁, buying one call at K₂, buying another call at K₃, and selling one call at K₄. The strategy is established for a net credit. It profits when the stock moves significantly outside the range between K₂ and K₃. Maximum profit equals the net credit received, achieved when the stock is below K₁ or above K₄. The maximum loss occurs when the stock remains between K₂ and K₃. This is a volatility strategy with limited risk on both sides.",
+    "formulas": {
+      "payoff": "f_T = -(S_T - K_1)^+ + (S_T - K_2)^+ + (S_T - K_3)^+ - (S_T - K_4)^+ + C",
+      "breakeven": "S_{BE,1} = K_1 + C; \\quad S_{BE,2} = K_4 - C",
+      "max_profit": "\\pi_{max} = C",
+      "max_loss": "\\mathcal{L}_{max} = K_2 - K_1 - C"
+    },
+    "max_profit": "Limited to net credit received",
+    "max_loss": "Limited to width of spread minus net credit",
+    "breakeven": "Two points: lowest strike plus credit and highest strike minus credit",
+    "legs": [
+      {"type": "call", "position": "short", "strike_description": "K₁ (lowest, ITM)", "moneyness": "ITM"},
+      {"type": "call", "position": "long", "strike_description": "K₂ (lower-middle, ITM)", "moneyness": "ITM"},
+      {"type": "call", "position": "long", "strike_description": "K₃ (upper-middle, OTM)", "moneyness": "OTM"},
+      {"type": "call", "position": "short", "strike_description": "K₄ (highest, OTM)", "moneyness": "OTM"}
+    ],
+    "related_strategies": ["2.46", "2.49", "2.51"]
+  },
+  {
+    "paper_ref": "2.49",
+    "name": "Short Put Condor",
+    "asset_class": "Options",
+    "category": "Complex Structures",
+    "strategy_type": "neutral_volatility",
+    "outlook": "Neutral; expects stock to move outside a range",
+    "difficulty": "advanced",
+    "short_description": "Sell one OTM put, buy one slightly OTM put, buy one slightly ITM put, and sell one ITM put to profit from a breakout.",
+    "full_description": "A short put condor is the inverse of the long put condor. It involves selling one put at K₁, buying one put at K₂, buying another put at K₃, and selling one put at K₄. The strategy is established for a net credit and is functionally equivalent to the short call condor. It profits when the stock moves significantly outside the range between K₂ and K₃. Maximum profit equals the net credit received. The maximum loss occurs when the stock remains between the middle strikes. This provides defined-risk exposure to a volatility increase or breakout event.",
+    "formulas": {
+      "payoff": "f_T = -(K_1 - S_T)^+ + (K_2 - S_T)^+ + (K_3 - S_T)^+ - (K_4 - S_T)^+ + C",
+      "breakeven": "S_{BE,1} = K_1 + C; \\quad S_{BE,2} = K_4 - C",
+      "max_profit": "\\pi_{max} = C",
+      "max_loss": "\\mathcal{L}_{max} = K_2 - K_1 - C"
+    },
+    "max_profit": "Limited to net credit received",
+    "max_loss": "Limited to width of spread minus net credit",
+    "breakeven": "Two points: lowest strike plus credit and highest strike minus credit",
+    "legs": [
+      {"type": "put", "position": "short", "strike_description": "K₁ (lowest, OTM)", "moneyness": "OTM"},
+      {"type": "put", "position": "long", "strike_description": "K₂ (lower-middle, OTM)", "moneyness": "OTM"},
+      {"type": "put", "position": "long", "strike_description": "K₃ (upper-middle, ITM)", "moneyness": "ITM"},
+      {"type": "put", "position": "short", "strike_description": "K₄ (highest, ITM)", "moneyness": "ITM"}
+    ],
+    "related_strategies": ["2.47", "2.48", "2.51"]
+  },
+  {
+    "paper_ref": "2.50",
+    "name": "Long Iron Condor",
+    "asset_class": "Options",
+    "category": "Complex Structures",
+    "strategy_type": "neutral_sideways",
+    "outlook": "Neutral; expects stock to stay within a range",
+    "difficulty": "advanced",
+    "short_description": "Combine a bull put spread and a bear call spread to collect premium while the stock stays between two middle strikes.",
+    "full_description": "A long iron condor combines a bull put spread (long put at K₁, short put at K₂) with a bear call spread (short call at K₃, long call at K₄), where K₁ < K₂ < K₃ < K₄. The strategy is established for a net credit. It profits when the stock remains between K₂ and K₃ at expiration, collecting the full premium. Maximum profit is the net credit received. Loss is limited to the width of the wider spread minus the credit. This is one of the most popular defined-risk income strategies, extensively used by options traders in low-volatility environments who expect range-bound price action.",
+    "formulas": {
+      "payoff": "f_T = (K_1 - S_T)^+ - (K_2 - S_T)^+ - (S_T - K_3)^+ + (S_T - K_4)^+ + C",
+      "breakeven": "S_{BE,1} = K_2 - C; \\quad S_{BE,2} = K_3 + C",
+      "max_profit": "\\pi_{max} = C",
+      "max_loss": "\\mathcal{L}_{max} = \\max(K_2 - K_1, K_4 - K_3) - C"
+    },
+    "max_profit": "Limited to net credit received",
+    "max_loss": "Limited to width of wider spread minus net credit",
+    "breakeven": "Two points: lower short strike minus credit and upper short strike plus credit",
+    "legs": [
+      {"type": "put", "position": "long", "strike_description": "K₁ (lowest, OTM)", "moneyness": "OTM"},
+      {"type": "put", "position": "short", "strike_description": "K₂ (lower-middle, OTM)", "moneyness": "OTM"},
+      {"type": "call", "position": "short", "strike_description": "K₃ (upper-middle, OTM)", "moneyness": "OTM"},
+      {"type": "call", "position": "long", "strike_description": "K₄ (highest, OTM)", "moneyness": "OTM"}
+    ],
+    "related_strategies": ["2.44", "2.46", "2.47", "2.51"]
+  },
+  {
+    "paper_ref": "2.51",
+    "name": "Short Iron Condor",
+    "asset_class": "Options",
+    "category": "Complex Structures",
+    "strategy_type": "neutral_volatility",
+    "outlook": "Neutral; expects stock to move outside a range",
+    "difficulty": "advanced",
+    "short_description": "Combine a bear put spread and a bull call spread to profit from a large move in either direction with defined risk.",
+    "full_description": "A short iron condor is the inverse of the long iron condor. The trader sells a put at K₁, buys a put at K₂, buys a call at K₃, and sells a call at K₄. It is established for a net debit. The strategy profits when the stock moves significantly outside the range between K₂ and K₃. Maximum profit is the width of the spread minus the net debit, achieved when the stock is below K₁ or above K₄. The maximum loss is limited to the net debit paid. This is a defined-risk volatility play used by traders expecting a significant breakout from the current trading range.",
+    "formulas": {
+      "payoff": "f_T = -(K_1 - S_T)^+ + (K_2 - S_T)^+ + (S_T - K_3)^+ - (S_T - K_4)^+ - D",
+      "breakeven": "S_{BE,1} = K_2 - D; \\quad S_{BE,2} = K_3 + D",
+      "max_profit": "\\pi_{max} = \\max(K_2 - K_1, K_4 - K_3) - D",
+      "max_loss": "\\mathcal{L}_{max} = D"
+    },
+    "max_profit": "Limited to width of spread minus net debit paid",
+    "max_loss": "Limited to net debit paid",
+    "breakeven": "Two points: lower middle strike minus debit and upper middle strike plus debit",
+    "legs": [
+      {"type": "put", "position": "short", "strike_description": "K₁ (lowest, OTM)", "moneyness": "OTM"},
+      {"type": "put", "position": "long", "strike_description": "K₂ (lower-middle, OTM)", "moneyness": "OTM"},
+      {"type": "call", "position": "long", "strike_description": "K₃ (upper-middle, OTM)", "moneyness": "OTM"},
+      {"type": "call", "position": "short", "strike_description": "K₄ (highest, OTM)", "moneyness": "OTM"}
+    ],
+    "related_strategies": ["2.45", "2.48", "2.49", "2.50"]
+  },
+  {
+    "paper_ref": "2.52",
+    "name": "Long Box",
+    "asset_class": "Options",
+    "category": "Complex Structures",
+    "strategy_type": "neutral_sideways",
+    "outlook": "Neutral; arbitrage strategy",
+    "difficulty": "advanced",
+    "short_description": "Combine a bull call spread and a bear put spread at the same strikes to lock in a risk-free payoff, used for arbitrage.",
+    "full_description": "A long box spread combines a bull call spread (long call at K₂, short call at K₁) with a bear put spread (long put at K₁, short put at K₂). At expiration, the payoff is always K₁ − K₂ regardless of where the stock finishes, making it equivalent to a risk-free bond. The strategy is used for arbitrage: if the cost of establishing the box is less than the present value of K₁ − K₂, the trader earns a risk-free profit. In practice, box spreads are used to exploit pricing inefficiencies in the options market or as a financing mechanism. Transaction costs and early exercise risk (for American options) must be considered.",
+    "formulas": {
+      "payoff": "f_T = (K_1 - K_2) \\text{ (constant, regardless of } S_T\\text{)}",
+      "breakeven": "\\text{N/A (payoff is constant)}",
+      "max_profit": "\\pi_{max} = (K_1 - K_2) - D",
+      "max_loss": "\\mathcal{L}_{max} = D - (K_1 - K_2)"
+    },
+    "max_profit": "Fixed; difference between strikes minus cost of establishing the box",
+    "max_loss": "Fixed; cost minus difference between strikes (if mispriced unfavorably)",
+    "breakeven": "Not applicable; payoff is the same regardless of stock price",
+    "legs": [
+      {"type": "put", "position": "long", "strike_description": "K₁ (higher, ITM)", "moneyness": "ITM"},
+      {"type": "put", "position": "short", "strike_description": "K₂ (lower, OTM)", "moneyness": "OTM"},
+      {"type": "call", "position": "long", "strike_description": "K₂ (lower, ITM)", "moneyness": "ITM"},
+      {"type": "call", "position": "short", "strike_description": "K₁ (higher, OTM)", "moneyness": "OTM"}
+    ],
+    "related_strategies": ["2.6", "2.9", "2.10", "2.11"]
+  },
+  {
+    "paper_ref": "2.53",
+    "name": "Collar",
+    "asset_class": "Options",
+    "category": "Single-Leg + Stock",
+    "strategy_type": "hedging",
+    "outlook": "Moderately bullish with downside protection",
+    "difficulty": "intermediate",
+    "short_description": "Buy stock, buy an OTM put for protection, and sell an OTM call to finance the put, creating a bounded risk/reward profile.",
+    "full_description": "A collar involves buying the underlying stock, purchasing an out-of-the-money put at K₁ for downside protection, and selling an out-of-the-money call at K₂ (K₂ > K₁) to help finance the put purchase. The result is a position with both limited downside risk and limited upside potential. The cost of the protective put is partially or fully offset by the call premium, often making the collar a zero-cost or low-cost strategy. This is one of the most popular hedging strategies for stockholders who want to protect against significant losses while accepting a cap on gains. It is widely used by institutional investors and corporate insiders.",
+    "formulas": {
+      "payoff": "f_T = S_T - S_0 + (K_1 - S_T)^+ - (S_T - K_2)^+ - H",
+      "breakeven": "S_{BE} = S_0 + H",
+      "max_profit": "\\pi_{max} = K_2 - S_0 - H",
+      "max_loss": "\\mathcal{L}_{max} = S_0 - K_1 + H"
+    },
+    "max_profit": "Limited to call strike minus purchase price minus net cost",
+    "max_loss": "Limited to purchase price minus put strike plus net cost",
+    "breakeven": "Stock purchase price plus net cost of the collar",
+    "legs": [
+      {"type": "stock", "position": "long", "strike_description": "N/A", "moneyness": "ATM"},
+      {"type": "put", "position": "long", "strike_description": "K₁ (OTM, below current price)", "moneyness": "OTM"},
+      {"type": "call", "position": "short", "strike_description": "K₂ (OTM, above current price)", "moneyness": "OTM"}
+    ],
+    "related_strategies": ["2.2", "2.4", "2.12"]
+  },
+  {
+    "paper_ref": "2.54",
+    "name": "Bullish Short Seagull Spread (Call)",
+    "asset_class": "Options",
+    "category": "Complex Structures",
+    "strategy_type": "directional_bullish",
+    "outlook": "Bullish with limited risk",
+    "difficulty": "advanced",
+    "short_description": "Sell an OTM put, buy an ATM call, and sell an OTM call to create a low-cost bullish position with capped upside.",
+    "full_description": "A bullish short seagull spread (call version) involves selling an out-of-the-money put at K₁, buying an at-the-money call at K₂, and selling an out-of-the-money call at K₃ (K₁ < K₂ < K₃). The premium from the sold put and call partially or fully offsets the cost of the long call, creating a low-cost or zero-cost bullish position. The strategy profits when the stock rises above K₂ up to K₃. The downside risk below K₁ is similar to being long the stock due to the short put. This structure is popular in commodities and FX markets for expressing a directional view with reduced premium outlay.",
+    "formulas": {
+      "payoff": "f_T = -(K_1 - S_T)^+ + (S_T - K_2)^+ - (S_T - K_3)^+ \\pm H",
+      "breakeven": "S_{BE} = K_2 \\pm H",
+      "max_profit": "\\pi_{max} = K_3 - K_2 \\pm H",
+      "max_loss": "\\mathcal{L}_{max} = K_1 + H \\text{ (stock falls to zero)}"
+    },
+    "max_profit": "Limited to K₃ − K₂ adjusted for net credit/debit",
+    "max_loss": "Substantial below K₁ due to short put exposure",
+    "breakeven": "At or near the ATM call strike, adjusted for net premium",
+    "legs": [
+      {"type": "put", "position": "short", "strike_description": "K₁ (OTM, below current price)", "moneyness": "OTM"},
+      {"type": "call", "position": "long", "strike_description": "K₂ (ATM)", "moneyness": "ATM"},
+      {"type": "call", "position": "short", "strike_description": "K₃ (OTM, above current price)", "moneyness": "OTM"}
+    ],
+    "related_strategies": ["2.55", "2.56", "2.57", "2.6"]
+  },
+  {
+    "paper_ref": "2.55",
+    "name": "Bearish Long Seagull Spread (Call)",
+    "asset_class": "Options",
+    "category": "Complex Structures",
+    "strategy_type": "directional_bearish",
+    "outlook": "Bearish with limited risk",
+    "difficulty": "advanced",
+    "short_description": "Buy an OTM put, sell an ATM call, and buy an OTM call to create a low-cost bearish position with capped downside profit.",
+    "full_description": "A bearish long seagull spread (call version) involves buying an out-of-the-money put at K₁, selling an at-the-money call at K₂, and buying an out-of-the-money call at K₃ (K₁ < K₂ < K₃). The premium from the sold call helps finance the long put and long call, reducing the overall cost. The strategy profits when the stock falls below K₁ through the long put. The long call at K₃ limits the upside risk from the short call. Between K₁ and K₂, the position has minimal exposure. This is a hedged bearish structure with defined risk on all sides.",
+    "formulas": {
+      "payoff": "f_T = (K_1 - S_T)^+ - (S_T - K_2)^+ + (S_T - K_3)^+ \\pm H",
+      "breakeven": "S_{BE} = K_1 - H \\text{ (if net debit)}",
+      "max_profit": "\\pi_{max} = K_1 \\pm H \\text{ (stock falls to zero)}",
+      "max_loss": "\\mathcal{L}_{max} = K_3 - K_2 + H"
+    },
+    "max_profit": "Substantial; long put profits as stock declines toward zero",
+    "max_loss": "Limited; capped by the call spread (K₃ − K₂) plus net cost",
+    "breakeven": "Near the put strike, adjusted for net premium paid/received",
+    "legs": [
+      {"type": "put", "position": "long", "strike_description": "K₁ (OTM, below current price)", "moneyness": "OTM"},
+      {"type": "call", "position": "short", "strike_description": "K₂ (ATM)", "moneyness": "ATM"},
+      {"type": "call", "position": "long", "strike_description": "K₃ (OTM, above current price)", "moneyness": "OTM"}
+    ],
+    "related_strategies": ["2.54", "2.56", "2.57", "2.8"]
+  },
+  {
+    "paper_ref": "2.56",
+    "name": "Bearish Short Seagull Spread (Put)",
+    "asset_class": "Options",
+    "category": "Complex Structures",
+    "strategy_type": "directional_bearish",
+    "outlook": "Bearish with limited risk",
+    "difficulty": "advanced",
+    "short_description": "Sell an OTM put, buy an ATM put, and sell an OTM call to create a low-cost bearish position financed by selling wings.",
+    "full_description": "A bearish short seagull spread (put version) involves selling an out-of-the-money put at K₁, buying an at-the-money put at K₂, and selling an out-of-the-money call at K₃ (K₁ < K₂ < K₃). The premiums from the sold put and sold call offset the cost of the long put, creating a low-cost or zero-cost bearish position. The strategy profits when the stock declines below K₂, with profits capped at K₂ − K₁ due to the short put at K₁. Above K₃, the short call creates unlimited upside risk. This is suitable for traders with a moderately bearish view who want to reduce the cost of a bearish position.",
+    "formulas": {
+      "payoff": "f_T = -(K_1 - S_T)^+ + (K_2 - S_T)^+ - (S_T - K_3)^+ \\pm H",
+      "breakeven": "S_{BE} = K_2 - H \\text{ (if net debit)}",
+      "max_profit": "\\pi_{max} = K_2 - K_1 \\pm H",
+      "max_loss": "\\mathcal{L}_{max} = \\text{Unlimited above } K_3"
+    },
+    "max_profit": "Limited to K₂ − K₁ adjusted for net premium",
+    "max_loss": "Unlimited above K₃ due to naked short call; limited to K₁ on the downside",
+    "breakeven": "Near the ATM put strike, adjusted for net premium",
+    "legs": [
+      {"type": "put", "position": "short", "strike_description": "K₁ (OTM, below current price)", "moneyness": "OTM"},
+      {"type": "put", "position": "long", "strike_description": "K₂ (ATM)", "moneyness": "ATM"},
+      {"type": "call", "position": "short", "strike_description": "K₃ (OTM, above current price)", "moneyness": "OTM"}
+    ],
+    "related_strategies": ["2.54", "2.55", "2.57", "2.9"]
+  },
+  {
+    "paper_ref": "2.57",
+    "name": "Bullish Long Seagull Spread (Put)",
+    "asset_class": "Options",
+    "category": "Complex Structures",
+    "strategy_type": "directional_bullish",
+    "outlook": "Bullish with limited risk",
+    "difficulty": "advanced",
+    "short_description": "Buy an OTM put, sell an ATM put, and buy an OTM call to create a low-cost bullish position with downside protection.",
+    "full_description": "A bullish long seagull spread (put version) involves buying an out-of-the-money put at K₁, selling an at-the-money put at K₂, and buying an out-of-the-money call at K₃ (K₁ < K₂ < K₃). The premium from the sold ATM put helps finance both the long OTM put and the long OTM call, creating a low-cost bullish position. The strategy profits when the stock rises above K₃ through the long call. The long put at K₁ provides a safety net if the stock drops significantly below K₂, limiting losses from the short put. Between K₁ and K₃, the position has limited exposure. This is a defined-risk bullish structure with a unique payoff profile.",
+    "formulas": {
+      "payoff": "f_T = (K_1 - S_T)^+ - (K_2 - S_T)^+ + (S_T - K_3)^+ \\pm H",
+      "breakeven": "S_{BE} = K_3 + H \\text{ (if net debit)}",
+      "max_profit": "\\pi_{max} = \\text{Unlimited above } K_3",
+      "max_loss": "\\mathcal{L}_{max} = K_2 - K_1 + H"
+    },
+    "max_profit": "Unlimited; long call profits as stock rises above K₃",
+    "max_loss": "Limited to put spread width (K₂ − K₁) plus net cost",
+    "breakeven": "Above the call strike, adjusted for net premium paid/received",
+    "legs": [
+      {"type": "put", "position": "long", "strike_description": "K₁ (OTM, below current price)", "moneyness": "OTM"},
+      {"type": "put", "position": "short", "strike_description": "K₂ (ATM)", "moneyness": "ATM"},
+      {"type": "call", "position": "long", "strike_description": "K₃ (OTM, above current price)", "moneyness": "OTM"}
+    ],
+    "related_strategies": ["2.54", "2.55", "2.56", "2.6"]
+  }
+]
