@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 from typing import Optional
 
@@ -50,7 +50,7 @@ def get_filters(db: Session = Depends(get_db)):
 def get_strategy(strategy_id: int, db: Session = Depends(get_db)):
     s = db.query(Strategy).filter(Strategy.id == strategy_id).first()
     if not s:
-        return {"error": "Not found"}
+        raise HTTPException(status_code=404, detail="Strategy not found")
     return _serialize_strategy(s, full=True)
 
 

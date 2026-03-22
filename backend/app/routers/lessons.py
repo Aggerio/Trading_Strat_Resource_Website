@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from typing import Optional
 
@@ -14,13 +14,16 @@ def list_lessons(module: Optional[str] = None, db: Session = Depends(get_db)):
     if module:
         q = q.filter(Lesson.module == module)
     lessons = q.order_by(Lesson.module, Lesson.order).all()
-    result = []
-    for l in lessons:
-        prog = db.query(UserProgress).filter(
-            UserProgress.lesson_id == l.id,
-            UserProgress.status == "completed"
-        ).first()
-        result.append({
+    lesson_ids = [l.id for l in lessons]
+    completed_ids = {
+        row[0]
+        for row in db.query(UserProgress.lesson_id).filter(
+            UserProgress.lesson_id.in_(lesson_ids),
+            UserProgress.status == "completed",
+        ).all()
+    }
+    return [
+        {
             "id": l.id,
             "module": l.module,
             "order": l.order,
@@ -28,17 +31,18 @@ def list_lessons(module: Optional[str] = None, db: Session = Depends(get_db)):
             "subtitle": l.subtitle,
             "difficulty": l.difficulty,
             "prerequisites": l.prerequisites,
-            "completed": prog is not None,
+            "completed": l.id in completed_ids,
             "strategy_count": len(l.strategies),
-        })
-    return result
+        }
+        for l in lessons
+    ]
 
 
 @router.get("/{lesson_id}")
 def get_lesson(lesson_id: int, db: Session = Depends(get_db)):
     l = db.query(Lesson).filter(Lesson.id == lesson_id).first()
     if not l:
-        return {"error": "Not found"}
+        raise HTTPException(status_code=404, detail="Lesson not found")
     return {
         "id": l.id,
         "module": l.module,
