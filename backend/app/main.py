@@ -1,3 +1,4 @@
+import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -9,9 +10,12 @@ Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Trading Strategy Trainer", version="1.0.0")
 
+_cors_origins_env = os.getenv("CORS_ORIGINS", "http://localhost:5173")
+cors_origins = [o.strip() for o in _cors_origins_env.split(",") if o.strip()]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=cors_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

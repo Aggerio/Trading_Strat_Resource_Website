@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 from datetime import datetime, timezone
@@ -17,7 +17,7 @@ class SubmitAnswers(BaseModel):
 def get_quiz(quiz_id: int, db: Session = Depends(get_db)):
     quiz = db.query(Quiz).filter(Quiz.id == quiz_id).first()
     if not quiz:
-        return {"error": "Not found"}
+        raise HTTPException(status_code=404, detail="Quiz not found")
     return {
         "id": quiz.id,
         "title": quiz.title,
@@ -40,7 +40,7 @@ def get_quiz(quiz_id: int, db: Session = Depends(get_db)):
 def submit_quiz(quiz_id: int, body: SubmitAnswers, db: Session = Depends(get_db)):
     quiz = db.query(Quiz).filter(Quiz.id == quiz_id).first()
     if not quiz:
-        return {"error": "Not found"}
+        raise HTTPException(status_code=404, detail="Quiz not found")
 
     total = len(quiz.questions)
     correct = 0

@@ -5,6 +5,14 @@ async function fetchJSON(url, options = {}) {
     headers: { 'Content-Type': 'application/json' },
     ...options,
   });
+  if (!res.ok) {
+    let detail = res.statusText;
+    try {
+      const err = await res.json();
+      if (err.detail) detail = err.detail;
+    } catch (_) { /* ignore parse error */ }
+    throw new Error(`API error ${res.status}: ${detail}`);
+  }
   return res.json();
 }
 

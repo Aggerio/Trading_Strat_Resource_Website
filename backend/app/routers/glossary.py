@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 from typing import Optional
 
@@ -44,7 +44,7 @@ def get_categories(db: Session = Depends(get_db)):
 def get_term(term_id: int, db: Session = Depends(get_db)):
     t = db.query(GlossaryTerm).filter(GlossaryTerm.id == term_id).first()
     if not t:
-        return {"error": "Not found"}
+        raise HTTPException(status_code=404, detail="Term not found")
     return {
         "id": t.id,
         "term": t.term,
