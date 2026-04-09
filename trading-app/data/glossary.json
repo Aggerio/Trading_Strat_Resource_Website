@@ -1,0 +1,938 @@
+[
+  {
+    "term": "Call Option",
+    "definition": "A financial contract that gives the holder the right, but not the obligation, to buy an underlying asset at a specified strike price before or on a specified expiration date.",
+    "category": "Options",
+    "related_terms": ["Put Option", "Strike Price", "Premium", "Expiration"]
+  },
+  {
+    "term": "Put Option",
+    "definition": "A financial contract that gives the holder the right, but not the obligation, to sell an underlying asset at a specified strike price before or on a specified expiration date.",
+    "category": "Options",
+    "related_terms": ["Call Option", "Strike Price", "Premium", "Expiration"]
+  },
+  {
+    "term": "Strike Price",
+    "definition": "The predetermined price at which an option holder can buy (call) or sell (put) the underlying asset. Also known as the exercise price.",
+    "category": "Options",
+    "related_terms": ["Call Option", "Put Option", "Moneyness", "Intrinsic Value"]
+  },
+  {
+    "term": "Premium",
+    "definition": "The price paid by the buyer to the seller (writer) of an option contract. It represents the cost of acquiring the rights conveyed by the option and is determined by factors including intrinsic value and time value.",
+    "category": "Options",
+    "related_terms": ["Intrinsic Value", "Time Value", "Implied Volatility"]
+  },
+  {
+    "term": "Expiration",
+    "definition": "The date on which an option contract becomes void and the right to exercise ceases to exist. After expiration, unexercised options expire worthless. Also referred to as maturity.",
+    "category": "Options",
+    "related_terms": ["Time-to-Maturity", "Time Value", "Theta"]
+  },
+  {
+    "term": "Exercise",
+    "definition": "The act of invoking the right granted by an option contract to buy (for calls) or sell (for puts) the underlying asset at the strike price.",
+    "category": "Options",
+    "related_terms": ["Call Option", "Put Option", "Strike Price", "European Option", "American Option"]
+  },
+  {
+    "term": "European Option",
+    "definition": "An option that can only be exercised at expiration, not before. Most index options and many options used in academic models are European-style.",
+    "category": "Options",
+    "related_terms": ["American Option", "Exercise", "Black-Scholes Model"]
+  },
+  {
+    "term": "American Option",
+    "definition": "An option that can be exercised at any time up to and including the expiration date. Most equity options traded on exchanges are American-style.",
+    "category": "Options",
+    "related_terms": ["European Option", "Exercise", "Early Exercise"]
+  },
+  {
+    "term": "At-the-Money (ATM)",
+    "definition": "An option whose strike price is equal to or very near the current market price of the underlying asset. ATM options have the highest time value relative to their premium.",
+    "category": "Options",
+    "related_terms": ["In-the-Money", "Out-of-the-Money", "Moneyness", "Strike Price"]
+  },
+  {
+    "term": "In-the-Money (ITM)",
+    "definition": "An option with intrinsic value. A call option is ITM when the underlying price is above the strike price; a put option is ITM when the underlying price is below the strike price.",
+    "category": "Options",
+    "related_terms": ["At-the-Money", "Out-of-the-Money", "Moneyness", "Intrinsic Value"]
+  },
+  {
+    "term": "Out-of-the-Money (OTM)",
+    "definition": "An option with no intrinsic value. A call is OTM when the underlying price is below the strike; a put is OTM when the underlying price is above the strike. OTM options consist entirely of time value.",
+    "category": "Options",
+    "related_terms": ["At-the-Money", "In-the-Money", "Moneyness", "Time Value"]
+  },
+  {
+    "term": "Moneyness",
+    "definition": "A description of the relationship between an option's strike price and the current price of the underlying asset. It classifies options as in-the-money, at-the-money, or out-of-the-money.",
+    "category": "Options",
+    "related_terms": ["At-the-Money", "In-the-Money", "Out-of-the-Money", "Strike Price"]
+  },
+  {
+    "term": "Intrinsic Value",
+    "definition": "The amount by which an option is in-the-money. For a call, it is max(0, underlying price − strike price); for a put, it is max(0, strike price − underlying price).",
+    "category": "Options",
+    "related_terms": ["Time Value", "Premium", "Moneyness"]
+  },
+  {
+    "term": "Time Value",
+    "definition": "The portion of an option's premium that exceeds its intrinsic value, reflecting the probability that the option will gain additional value before expiration. Time value decays as expiration approaches.",
+    "category": "Options",
+    "related_terms": ["Intrinsic Value", "Premium", "Theta", "Time-to-Maturity"]
+  },
+  {
+    "term": "Payoff",
+    "definition": "The profit or loss realized from an option position at expiration. For a long call, the payoff is max(0, S − K) minus the premium paid, where S is the underlying price and K is the strike.",
+    "category": "Options",
+    "related_terms": ["Premium", "Strike Price", "Break-even"]
+  },
+  {
+    "term": "Long Position",
+    "definition": "A position that profits from an increase in the price of the asset. In options, going long means buying the option contract and paying the premium.",
+    "category": "Options",
+    "related_terms": ["Short Position", "Call Option", "Put Option"]
+  },
+  {
+    "term": "Short Position",
+    "definition": "A position that profits from a decrease in the price of the asset. In options, going short means writing (selling) the option contract and receiving the premium.",
+    "category": "Options",
+    "related_terms": ["Long Position", "Writing an Option", "Naked Option"]
+  },
+  {
+    "term": "Writing an Option",
+    "definition": "The act of selling an option contract, thereby taking on the obligation to fulfill the contract if the buyer exercises. The writer collects the premium in exchange for this obligation.",
+    "category": "Options",
+    "related_terms": ["Short Position", "Naked Option", "Covered Option", "Premium"]
+  },
+  {
+    "term": "Naked Option",
+    "definition": "A written (sold) option position where the seller does not hold a corresponding position in the underlying asset to offset potential losses. Naked options carry theoretically unlimited risk for calls.",
+    "category": "Options",
+    "related_terms": ["Covered Option", "Writing an Option", "Short Position"]
+  },
+  {
+    "term": "Covered Option",
+    "definition": "A written option position that is offset by a corresponding position in the underlying asset. A covered call, for example, involves selling a call while owning the underlying shares.",
+    "category": "Options",
+    "related_terms": ["Naked Option", "Writing an Option", "Collar"]
+  },
+  {
+    "term": "Vertical Spread",
+    "definition": "An options strategy involving buying and selling options of the same type and expiration but with different strike prices. Bull call spreads and bear put spreads are common examples.",
+    "category": "Options",
+    "related_terms": ["Horizontal Spread", "Diagonal Spread", "Net Debit", "Net Credit"]
+  },
+  {
+    "term": "Horizontal Spread",
+    "definition": "An options strategy involving buying and selling options of the same type and strike price but with different expiration dates. Also known as a calendar spread or time spread.",
+    "category": "Options",
+    "related_terms": ["Vertical Spread", "Diagonal Spread", "Time Value"]
+  },
+  {
+    "term": "Diagonal Spread",
+    "definition": "An options strategy that combines elements of vertical and horizontal spreads by using options with different strike prices and different expiration dates.",
+    "category": "Options",
+    "related_terms": ["Vertical Spread", "Horizontal Spread"]
+  },
+  {
+    "term": "Net Debit",
+    "definition": "A spread position where the premium paid for bought options exceeds the premium received from sold options, resulting in a net cost to establish the position.",
+    "category": "Options",
+    "related_terms": ["Net Credit", "Vertical Spread", "Premium"]
+  },
+  {
+    "term": "Net Credit",
+    "definition": "A spread position where the premium received from sold options exceeds the premium paid for bought options, resulting in a net cash inflow when establishing the position.",
+    "category": "Options",
+    "related_terms": ["Net Debit", "Vertical Spread", "Premium"]
+  },
+  {
+    "term": "Break-even",
+    "definition": "The price of the underlying asset at which an option strategy produces neither a profit nor a loss. For a long call, the break-even is the strike price plus the premium paid.",
+    "category": "Options",
+    "related_terms": ["Payoff", "Premium", "Strike Price"]
+  },
+  {
+    "term": "Time-to-Maturity (TTM)",
+    "definition": "The remaining time until an option's expiration date. As TTM decreases, the time value of an option decays, a phenomenon measured by the Greek theta.",
+    "category": "Options",
+    "related_terms": ["Expiration", "Time Value", "Theta"]
+  },
+  {
+    "term": "Delta",
+    "definition": "An option Greek measuring the rate of change of the option's price with respect to a one-unit change in the underlying asset's price. Delta ranges from 0 to 1 for calls and −1 to 0 for puts.",
+    "category": "Options",
+    "related_terms": ["Gamma", "Option Greeks", "Delta-Hedging"]
+  },
+  {
+    "term": "Gamma",
+    "definition": "An option Greek measuring the rate of change of delta with respect to changes in the underlying asset's price. Gamma is highest for at-the-money options near expiration.",
+    "category": "Options",
+    "related_terms": ["Delta", "Option Greeks", "At-the-Money"]
+  },
+  {
+    "term": "Theta",
+    "definition": "An option Greek measuring the rate of time decay of an option's price. Theta represents how much value an option loses per day as expiration approaches, holding all else constant.",
+    "category": "Options",
+    "related_terms": ["Time Value", "Time-to-Maturity", "Option Greeks"]
+  },
+  {
+    "term": "Vega",
+    "definition": "An option Greek measuring the sensitivity of an option's price to changes in the implied volatility of the underlying asset. Higher vega means the option price is more sensitive to volatility changes.",
+    "category": "Options",
+    "related_terms": ["Implied Volatility", "Option Greeks", "Premium"]
+  },
+  {
+    "term": "Rho",
+    "definition": "An option Greek measuring the sensitivity of an option's price to changes in the risk-free interest rate. Rho is generally more significant for longer-dated options.",
+    "category": "Options",
+    "related_terms": ["Option Greeks", "Risk-Free Rate", "Time-to-Maturity"]
+  },
+  {
+    "term": "Option Greeks",
+    "definition": "A set of risk measures that describe how an option's price changes in response to various factors. The primary Greeks are Delta, Gamma, Theta, Vega, and Rho.",
+    "category": "Options",
+    "related_terms": ["Delta", "Gamma", "Theta", "Vega", "Rho"]
+  },
+  {
+    "term": "Put-Call Parity",
+    "definition": "A fundamental relationship in options pricing stating that the price of a European call minus the price of a European put equals the current stock price minus the present value of the strike price. It links calls, puts, the underlying, and the risk-free rate.",
+    "category": "Options",
+    "related_terms": ["Call Option", "Put Option", "European Option", "Black-Scholes Model"]
+  },
+  {
+    "term": "Implied Volatility",
+    "definition": "The market's expectation of future volatility of the underlying asset, derived from the current market price of an option using an options pricing model. Higher implied volatility leads to higher option premiums.",
+    "category": "Options",
+    "related_terms": ["Historical Volatility", "Vega", "Black-Scholes Model", "Premium"]
+  },
+  {
+    "term": "Historical Volatility",
+    "definition": "A measure of the actual observed volatility of an asset's returns over a past period, typically calculated as the annualized standard deviation of log returns.",
+    "category": "Options",
+    "related_terms": ["Implied Volatility", "Standard Deviation", "Volatility"]
+  },
+  {
+    "term": "Black-Scholes Model",
+    "definition": "A mathematical model for pricing European-style options, developed by Fischer Black, Myron Scholes, and Robert Merton. It assumes constant volatility, no dividends, and log-normal price distribution to derive a closed-form option price.",
+    "category": "Options",
+    "related_terms": ["European Option", "Implied Volatility", "Option Greeks", "Put-Call Parity"]
+  },
+  {
+    "term": "Butterfly Spread",
+    "definition": "An options strategy combining a bull spread and a bear spread with three strike prices. It profits when the underlying price stays near the middle strike at expiration, offering limited risk and limited reward.",
+    "category": "Options",
+    "related_terms": ["Vertical Spread", "Condor", "Iron Condor"]
+  },
+  {
+    "term": "Condor",
+    "definition": "An options strategy similar to a butterfly spread but using four different strike prices, creating a wider profit zone. It profits when the underlying stays within a range defined by the two inner strikes.",
+    "category": "Options",
+    "related_terms": ["Butterfly Spread", "Iron Condor", "Vertical Spread"]
+  },
+  {
+    "term": "Iron Condor",
+    "definition": "An options strategy that combines a bull put spread and a bear call spread with four different strike prices. It profits from low volatility when the underlying price remains between the two inner strikes at expiration.",
+    "category": "Options",
+    "related_terms": ["Condor", "Vertical Spread", "Straddle", "Strangle"]
+  },
+  {
+    "term": "Straddle",
+    "definition": "An options strategy involving the simultaneous purchase (or sale) of a call and a put with the same strike price and expiration. A long straddle profits from large price moves in either direction.",
+    "category": "Options",
+    "related_terms": ["Strangle", "Implied Volatility", "At-the-Money"]
+  },
+  {
+    "term": "Strangle",
+    "definition": "An options strategy involving the simultaneous purchase (or sale) of a call and a put with different strike prices but the same expiration. A long strangle is cheaper than a straddle but requires a larger price move to profit.",
+    "category": "Options",
+    "related_terms": ["Straddle", "Out-of-the-Money", "Implied Volatility"]
+  },
+  {
+    "term": "Collar",
+    "definition": "A protective options strategy that involves holding the underlying asset, buying a protective put, and selling a covered call. It limits both downside losses and upside gains within a defined range.",
+    "category": "Options",
+    "related_terms": ["Covered Option", "Put Option", "Call Option", "Risk Reversal"]
+  },
+  {
+    "term": "Seagull Spread",
+    "definition": "An options strategy that combines a call spread (or put spread) with an additional sold option on the opposite side. It provides protection against adverse moves while partially financing the cost by selling an option.",
+    "category": "Options",
+    "related_terms": ["Collar", "Vertical Spread", "Risk Reversal"]
+  },
+  {
+    "term": "Risk Reversal",
+    "definition": "An options strategy involving buying a call and selling a put (or vice versa) at different strike prices with the same expiration. It is used to express a directional view and is also a measure of volatility skew.",
+    "category": "Options",
+    "related_terms": ["Collar", "Call Option", "Put Option", "Implied Volatility"]
+  },
+  {
+    "term": "Backspread",
+    "definition": "An options strategy that involves selling one or more options closer to the money and buying a greater number of options further from the money. It profits from large moves in the underlying in one direction.",
+    "category": "Options",
+    "related_terms": ["Ratio Spread", "Vertical Spread", "Vega"]
+  },
+  {
+    "term": "Ratio Spread",
+    "definition": "An options strategy involving buying and selling different quantities of options at different strike prices. For example, buying one call and selling two calls at a higher strike creates a 1:2 ratio call spread.",
+    "category": "Options",
+    "related_terms": ["Backspread", "Vertical Spread", "Net Credit"]
+  },
+  {
+    "term": "Volatility Skew",
+    "definition": "The pattern of implied volatilities varying across options with different strike prices but the same expiration. Typically, out-of-the-money puts have higher implied volatility than at-the-money options, reflecting demand for downside protection.",
+    "category": "Options",
+    "related_terms": ["Implied Volatility", "Moneyness", "Risk Reversal"]
+  },
+  {
+    "term": "Volatility Surface",
+    "definition": "A three-dimensional plot of implied volatility as a function of both strike price and time-to-maturity. It extends the concept of volatility skew across multiple expirations.",
+    "category": "Options",
+    "related_terms": ["Implied Volatility", "Volatility Skew", "Time-to-Maturity"]
+  },
+  {
+    "term": "Stock",
+    "definition": "A security representing ownership in a corporation. Stockholders are entitled to a proportionate share of the company's profits (via dividends) and assets, and may have voting rights.",
+    "category": "Stocks",
+    "related_terms": ["Share", "Dividend", "Market Capitalization"]
+  },
+  {
+    "term": "Share",
+    "definition": "A single unit of ownership in a company or financial asset. The total number of shares outstanding multiplied by the current price per share equals the market capitalization.",
+    "category": "Stocks",
+    "related_terms": ["Stock", "Market Capitalization"]
+  },
+  {
+    "term": "Market Capitalization",
+    "definition": "The total market value of a company's outstanding shares, calculated by multiplying the current share price by the total number of shares outstanding. It is used to classify companies as small-cap, mid-cap, or large-cap.",
+    "category": "Stocks",
+    "related_terms": ["Share", "Stock", "Fama-French Factors"]
+  },
+  {
+    "term": "Book Value",
+    "definition": "The net asset value of a company, calculated as total assets minus total liabilities. Book value per share represents the equity available to shareholders on a per-share basis.",
+    "category": "Stocks",
+    "related_terms": ["Book-to-Market Ratio", "Market Capitalization"]
+  },
+  {
+    "term": "Book-to-Market Ratio",
+    "definition": "The ratio of a company's book value to its market capitalization. A high book-to-market ratio characterizes value stocks, while a low ratio characterizes growth stocks. It is one of the Fama-French factors.",
+    "category": "Stocks",
+    "related_terms": ["Book Value", "Market Capitalization", "Fama-French Factors"]
+  },
+  {
+    "term": "Earnings Per Share (EPS)",
+    "definition": "A company's net income divided by the number of outstanding shares. EPS is a key measure of profitability and is used in computing the price-to-earnings ratio.",
+    "category": "Stocks",
+    "related_terms": ["Price-to-Earnings Ratio", "Dividend"]
+  },
+  {
+    "term": "Price-to-Earnings (P/E) Ratio",
+    "definition": "The ratio of a company's current share price to its earnings per share. It indicates how much investors are willing to pay per dollar of earnings and is commonly used for relative valuation.",
+    "category": "Stocks",
+    "related_terms": ["Earnings Per Share", "Market Capitalization"]
+  },
+  {
+    "term": "Dividend",
+    "definition": "A distribution of a portion of a company's earnings to its shareholders, typically paid in cash on a regular schedule. Dividend yield is the annual dividend divided by the share price.",
+    "category": "Stocks",
+    "related_terms": ["Earnings Per Share", "Stock", "Return"]
+  },
+  {
+    "term": "Return",
+    "definition": "The gain or loss on an investment over a specified period, expressed as a percentage of the initial investment. Total return includes both price appreciation and dividends or interest received.",
+    "category": "Stocks",
+    "related_terms": ["Cumulative Return", "Risk-Adjusted Return", "Alpha"]
+  },
+  {
+    "term": "Cumulative Return",
+    "definition": "The total return on an investment over a specified period, representing the aggregate effect of all gains and losses. It is calculated by compounding individual period returns.",
+    "category": "Stocks",
+    "related_terms": ["Return", "Holding Period"]
+  },
+  {
+    "term": "Risk-Adjusted Return",
+    "definition": "A measure of investment return that accounts for the level of risk taken to achieve it. Common risk-adjusted metrics include the Sharpe ratio, Sortino ratio, and information ratio.",
+    "category": "Stocks",
+    "related_terms": ["Sharpe Ratio", "Alpha", "Volatility", "Return"]
+  },
+  {
+    "term": "Volatility",
+    "definition": "A statistical measure of the dispersion of returns for a given security or market index. It is commonly measured as the standard deviation of returns and indicates the degree of price uncertainty.",
+    "category": "Stocks",
+    "related_terms": ["Standard Deviation", "Historical Volatility", "Implied Volatility", "Beta"]
+  },
+  {
+    "term": "Standard Deviation (Finance)",
+    "definition": "A measure of the dispersion of a set of returns from their mean. In finance, it is used as a proxy for the total risk of an investment; higher standard deviation indicates greater volatility.",
+    "category": "Stocks",
+    "related_terms": ["Volatility", "Variance", "Sharpe Ratio"]
+  },
+  {
+    "term": "Sharpe Ratio",
+    "definition": "A measure of risk-adjusted return calculated as the excess return of an investment over the risk-free rate divided by its standard deviation. Higher Sharpe ratios indicate better risk-adjusted performance.",
+    "category": "Stocks",
+    "related_terms": ["Risk-Adjusted Return", "Risk-Free Rate", "Standard Deviation (Finance)", "Volatility"]
+  },
+  {
+    "term": "Alpha",
+    "definition": "The excess return of an investment relative to a benchmark index or expected return from a pricing model. Positive alpha indicates the investment outperformed its benchmark on a risk-adjusted basis.",
+    "category": "Stocks",
+    "related_terms": ["Beta", "Return", "Risk-Adjusted Return", "Fama-French Factors"]
+  },
+  {
+    "term": "Beta",
+    "definition": "A measure of a security's sensitivity to market movements, calculated as the covariance of the security's returns with market returns divided by the variance of market returns. A beta of 1 implies the asset moves in line with the market.",
+    "category": "Stocks",
+    "related_terms": ["Alpha", "Systematic Risk", "Covariance", "Volatility"]
+  },
+  {
+    "term": "Fama-French Factors",
+    "definition": "A set of risk factors used in asset pricing models developed by Eugene Fama and Kenneth French. The three-factor model includes market risk, size (SMB: small minus big), and value (HML: high minus low book-to-market).",
+    "category": "Stocks",
+    "related_terms": ["Alpha", "Beta", "Book-to-Market Ratio", "Market Capitalization", "Momentum"]
+  },
+  {
+    "term": "Momentum",
+    "definition": "A trading strategy based on the tendency of assets that have performed well (poorly) in the recent past to continue performing well (poorly) in the near future. Momentum is also a well-documented anomaly in asset pricing.",
+    "category": "Stocks",
+    "related_terms": ["Mean-Reversion", "Formation Period", "Holding Period", "Fama-French Factors"]
+  },
+  {
+    "term": "Mean-Reversion",
+    "definition": "The theory that asset prices and returns tend to move back toward their historical mean or average level over time. Mean-reversion strategies buy underperforming assets and sell outperforming assets.",
+    "category": "Stocks",
+    "related_terms": ["Momentum", "Pairs Trading", "Moving Average"]
+  },
+  {
+    "term": "Pairs Trading",
+    "definition": "A market-neutral trading strategy that involves simultaneously going long on one asset and short on a related asset when their price ratio deviates from its historical average, betting on convergence.",
+    "category": "Stocks",
+    "related_terms": ["Mean-Reversion", "Dollar-Neutral", "Long-Short", "Correlation"]
+  },
+  {
+    "term": "Dollar-Neutral",
+    "definition": "A portfolio construction approach where the total dollar value of long positions equals the total dollar value of short positions, resulting in zero net market exposure.",
+    "category": "Stocks",
+    "related_terms": ["Long-Short", "Pairs Trading", "Hedging"]
+  },
+  {
+    "term": "Long-Short",
+    "definition": "An investment strategy that takes long positions in stocks expected to appreciate and short positions in stocks expected to decline. It aims to profit from both rising and falling prices while reducing market risk.",
+    "category": "Stocks",
+    "related_terms": ["Dollar-Neutral", "Pairs Trading", "Alpha", "Hedging"]
+  },
+  {
+    "term": "Moving Average (SMA/EMA)",
+    "definition": "A smoothed time series calculated by averaging prices over a specified number of periods. The Simple Moving Average (SMA) uses equal weights; the Exponential Moving Average (EMA) gives more weight to recent prices.",
+    "category": "Stocks",
+    "related_terms": ["Golden Cross", "Death Cross", "Support", "Resistance"]
+  },
+  {
+    "term": "Support",
+    "definition": "A price level where a stock tends to find buying interest, preventing it from falling further. Support levels are identified by historical price action and are used in technical analysis.",
+    "category": "Stocks",
+    "related_terms": ["Resistance", "Channel", "Moving Average (SMA/EMA)"]
+  },
+  {
+    "term": "Resistance",
+    "definition": "A price level where a stock tends to encounter selling pressure, preventing it from rising further. Resistance levels are identified from historical price action and serve as potential reversal points.",
+    "category": "Stocks",
+    "related_terms": ["Support", "Channel", "Moving Average (SMA/EMA)"]
+  },
+  {
+    "term": "Channel",
+    "definition": "A price range bounded by parallel support and resistance lines within which an asset trades. Channels can be ascending, descending, or horizontal and are used to identify trend direction and potential breakouts.",
+    "category": "Stocks",
+    "related_terms": ["Support", "Resistance", "Moving Average (SMA/EMA)"]
+  },
+  {
+    "term": "Golden Cross",
+    "definition": "A bullish technical signal that occurs when a shorter-term moving average (e.g., 50-day) crosses above a longer-term moving average (e.g., 200-day), suggesting upward momentum.",
+    "category": "Stocks",
+    "related_terms": ["Death Cross", "Moving Average (SMA/EMA)", "Momentum"]
+  },
+  {
+    "term": "Death Cross",
+    "definition": "A bearish technical signal that occurs when a shorter-term moving average (e.g., 50-day) crosses below a longer-term moving average (e.g., 200-day), suggesting downward momentum.",
+    "category": "Stocks",
+    "related_terms": ["Golden Cross", "Moving Average (SMA/EMA)", "Momentum"]
+  },
+  {
+    "term": "Relative Strength Index (RSI)",
+    "definition": "A momentum oscillator that measures the speed and magnitude of recent price changes on a scale of 0 to 100. An RSI above 70 is typically considered overbought, and below 30 is considered oversold.",
+    "category": "Stocks",
+    "related_terms": ["Momentum", "Moving Average (SMA/EMA)", "Support", "Resistance"]
+  },
+  {
+    "term": "Volume",
+    "definition": "The number of shares or contracts traded in a security or market during a given period. Volume is a key indicator of market activity and liquidity, and often confirms price trends.",
+    "category": "Stocks",
+    "related_terms": ["Liquidity", "Bid-Ask Spread"]
+  },
+  {
+    "term": "VWAP",
+    "definition": "Volume-Weighted Average Price, calculated by dividing the total dollar value of trades by the total volume over a period. It serves as a benchmark for trade execution quality and intraday price trends.",
+    "category": "Stocks",
+    "related_terms": ["Volume", "Moving Average (SMA/EMA)", "Liquidity"]
+  },
+  {
+    "term": "Market Microstructure",
+    "definition": "The study of the processes and mechanisms by which securities are traded, including price formation, order types, bid-ask dynamics, and the role of market makers.",
+    "category": "Stocks",
+    "related_terms": ["Bid-Ask Spread", "Liquidity", "Market Order", "Limit Order"]
+  },
+  {
+    "term": "Sector Rotation",
+    "definition": "An investment strategy that involves shifting portfolio allocations among different industry sectors based on the economic cycle or relative performance expectations.",
+    "category": "Stocks",
+    "related_terms": ["Diversification", "Momentum", "Rebalancing"]
+  },
+  {
+    "term": "Arbitrage",
+    "definition": "The simultaneous purchase and sale of the same or equivalent asset in different markets to profit from price discrepancies with little or no risk. True arbitrage opportunities are rare and short-lived.",
+    "category": "General Trading",
+    "related_terms": ["Hedging", "Speculation", "Pairs Trading"]
+  },
+  {
+    "term": "Hedging",
+    "definition": "A risk management strategy that involves taking an offsetting position in a related security to reduce the risk of adverse price movements. Common hedging instruments include options, futures, and swaps.",
+    "category": "General Trading",
+    "related_terms": ["Risk", "Delta-Hedging", "Collar", "Diversification"]
+  },
+  {
+    "term": "Speculation",
+    "definition": "The practice of trading financial instruments with the expectation of profiting from future price changes, accepting higher risk in pursuit of higher returns. Speculators provide liquidity to markets.",
+    "category": "General Trading",
+    "related_terms": ["Hedging", "Leverage", "Risk"]
+  },
+  {
+    "term": "Leverage",
+    "definition": "The use of borrowed capital or financial instruments to amplify potential returns. While leverage magnifies gains, it also magnifies losses and increases the risk of a position.",
+    "category": "General Trading",
+    "related_terms": ["Margin", "Risk", "Short Selling"]
+  },
+  {
+    "term": "Margin",
+    "definition": "The collateral required by a broker to open and maintain a leveraged trading position. Initial margin is the deposit needed to open a position; maintenance margin is the minimum equity required to keep it open.",
+    "category": "General Trading",
+    "related_terms": ["Leverage", "Short Selling", "Margin Call"]
+  },
+  {
+    "term": "Short Selling",
+    "definition": "The practice of selling borrowed shares with the intention of buying them back later at a lower price. Short sellers profit from price declines but face theoretically unlimited loss if the price rises.",
+    "category": "General Trading",
+    "related_terms": ["Long-Short", "Margin", "Leverage", "Pairs Trading"]
+  },
+  {
+    "term": "Portfolio",
+    "definition": "A collection of financial investments such as stocks, bonds, options, and other assets held by an investor. Portfolio theory focuses on optimizing the risk-return tradeoff across the entire collection.",
+    "category": "General Trading",
+    "related_terms": ["Diversification", "Rebalancing", "Mean-Variance Optimization"]
+  },
+  {
+    "term": "Diversification",
+    "definition": "A risk management technique that mixes a variety of investments within a portfolio to reduce exposure to any single asset or risk. Diversification works best when assets are not perfectly correlated.",
+    "category": "General Trading",
+    "related_terms": ["Portfolio", "Correlation", "Unsystematic Risk", "Rebalancing"]
+  },
+  {
+    "term": "Rebalancing",
+    "definition": "The process of realigning the weightings of a portfolio's assets to maintain a desired asset allocation. Rebalancing involves periodically buying or selling assets to restore target weights.",
+    "category": "General Trading",
+    "related_terms": ["Portfolio", "Diversification", "Holding Period"]
+  },
+  {
+    "term": "Liquidity",
+    "definition": "The ease with which an asset can be bought or sold in the market without significantly affecting its price. Highly liquid assets have tight bid-ask spreads and high trading volume.",
+    "category": "General Trading",
+    "related_terms": ["Bid-Ask Spread", "Volume", "Slippage"]
+  },
+  {
+    "term": "Bid-Ask Spread",
+    "definition": "The difference between the highest price a buyer is willing to pay (bid) and the lowest price a seller is willing to accept (ask). A narrower spread indicates higher liquidity and lower transaction costs.",
+    "category": "General Trading",
+    "related_terms": ["Liquidity", "Transaction Costs", "Market Order"]
+  },
+  {
+    "term": "Market Order",
+    "definition": "An order to buy or sell a security immediately at the best available current price. Market orders guarantee execution but not the execution price, and may result in slippage in less liquid markets.",
+    "category": "General Trading",
+    "related_terms": ["Limit Order", "Stop-Loss", "Slippage"]
+  },
+  {
+    "term": "Limit Order",
+    "definition": "An order to buy or sell a security at a specified price or better. A buy limit order executes at the limit price or lower; a sell limit order executes at the limit price or higher.",
+    "category": "General Trading",
+    "related_terms": ["Market Order", "Stop-Loss", "Bid-Ask Spread"]
+  },
+  {
+    "term": "Stop-Loss",
+    "definition": "An order placed to sell a security when it reaches a certain price, designed to limit an investor's loss on a position. Stop-loss orders become market orders once the trigger price is hit.",
+    "category": "General Trading",
+    "related_terms": ["Market Order", "Limit Order", "Drawdown", "Risk"]
+  },
+  {
+    "term": "Slippage",
+    "definition": "The difference between the expected execution price of a trade and the actual price at which it is filled. Slippage commonly occurs during periods of high volatility or low liquidity.",
+    "category": "General Trading",
+    "related_terms": ["Liquidity", "Transaction Costs", "Market Order"]
+  },
+  {
+    "term": "Transaction Costs",
+    "definition": "The expenses incurred when buying or selling securities, including broker commissions, bid-ask spreads, and market impact costs. Transaction costs reduce net investment returns.",
+    "category": "General Trading",
+    "related_terms": ["Bid-Ask Spread", "Slippage", "Trading Costs"]
+  },
+  {
+    "term": "Basis Points",
+    "definition": "A unit of measure equal to one hundredth of a percentage point (0.01%). Basis points are commonly used to express changes in interest rates, yields, and fees. 100 basis points equal 1%.",
+    "category": "General Trading",
+    "related_terms": ["Transaction Costs", "Risk-Free Rate"]
+  },
+  {
+    "term": "Trading Costs",
+    "definition": "The total costs associated with executing trades, including explicit costs (commissions, taxes) and implicit costs (bid-ask spread, slippage, market impact). Minimizing trading costs is critical for strategy performance.",
+    "category": "General Trading",
+    "related_terms": ["Transaction Costs", "Slippage", "Bid-Ask Spread"]
+  },
+  {
+    "term": "Formation Period",
+    "definition": "The lookback window used in momentum and mean-reversion strategies to measure past performance. Assets are ranked based on returns during this period to form long and short portfolios.",
+    "category": "General Trading",
+    "related_terms": ["Holding Period", "Skip Period", "Momentum", "Mean-Reversion"]
+  },
+  {
+    "term": "Holding Period",
+    "definition": "The duration for which a trading position is held after portfolio formation. In momentum strategies, the holding period typically ranges from one to twelve months.",
+    "category": "General Trading",
+    "related_terms": ["Formation Period", "Skip Period", "Rebalancing"]
+  },
+  {
+    "term": "Skip Period",
+    "definition": "A short gap (often one week or one month) between the formation period and the holding period in momentum strategies. It helps avoid short-term reversal effects and microstructure biases.",
+    "category": "General Trading",
+    "related_terms": ["Formation Period", "Holding Period", "Momentum"]
+  },
+  {
+    "term": "Backtesting",
+    "definition": "The process of testing a trading strategy on historical data to evaluate its performance before deploying it in live markets. Backtesting helps estimate expected returns, risk, and robustness.",
+    "category": "General Trading",
+    "related_terms": ["Out-of-Sample", "Overfitting", "Drawdown"]
+  },
+  {
+    "term": "Out-of-Sample",
+    "definition": "Data that was not used during the development or calibration of a trading model, reserved for independent validation. Strong out-of-sample performance suggests a strategy is robust rather than overfit.",
+    "category": "General Trading",
+    "related_terms": ["Backtesting", "Overfitting"]
+  },
+  {
+    "term": "Overfitting",
+    "definition": "The phenomenon where a model or strategy is excessively tailored to historical data, capturing noise rather than genuine patterns. Overfit strategies perform well in backtests but poorly in live trading.",
+    "category": "General Trading",
+    "related_terms": ["Backtesting", "Out-of-Sample"]
+  },
+  {
+    "term": "Drawdown",
+    "definition": "The peak-to-trough decline in the value of a portfolio or investment before a new peak is reached. Drawdown measures downside risk and is often reported as a percentage of the peak value.",
+    "category": "General Trading",
+    "related_terms": ["Maximum Drawdown", "Risk", "Stop-Loss"]
+  },
+  {
+    "term": "Margin Call",
+    "definition": "A broker's demand for an investor to deposit additional funds or securities when the account equity falls below the maintenance margin requirement. Failure to meet a margin call can result in forced liquidation.",
+    "category": "General Trading",
+    "related_terms": ["Margin", "Leverage", "Short Selling"]
+  },
+  {
+    "term": "Risk",
+    "definition": "The possibility of losing some or all of an investment. In finance, risk is often quantified as the volatility of returns, but it also encompasses tail risk, liquidity risk, and model risk.",
+    "category": "Risk Management",
+    "related_terms": ["Systematic Risk", "Unsystematic Risk", "Volatility", "Value at Risk"]
+  },
+  {
+    "term": "Systematic Risk",
+    "definition": "The risk inherent to the entire market or market segment that cannot be eliminated through diversification. Also called market risk, it is driven by factors such as interest rates, recessions, and geopolitical events.",
+    "category": "Risk Management",
+    "related_terms": ["Unsystematic Risk", "Beta", "Risk Premium", "Diversification"]
+  },
+  {
+    "term": "Unsystematic Risk",
+    "definition": "The risk specific to an individual company or industry that can be reduced or eliminated through diversification. Examples include management changes, product recalls, or regulatory actions affecting a single firm.",
+    "category": "Risk Management",
+    "related_terms": ["Systematic Risk", "Diversification", "Risk"]
+  },
+  {
+    "term": "Covariance",
+    "definition": "A statistical measure of how two asset returns move together. Positive covariance means they tend to move in the same direction; negative covariance means they move inversely. It is essential for portfolio risk calculation.",
+    "category": "Risk Management",
+    "related_terms": ["Correlation", "Covariance Matrix", "Variance"]
+  },
+  {
+    "term": "Correlation",
+    "definition": "A standardized measure of the linear relationship between two variables, ranging from −1 (perfect negative) to +1 (perfect positive). Low correlations between assets enhance diversification benefits.",
+    "category": "Risk Management",
+    "related_terms": ["Covariance", "Diversification", "Pairs Trading"]
+  },
+  {
+    "term": "Covariance Matrix",
+    "definition": "A matrix whose entries are the covariances between pairs of asset returns. It is a fundamental input in mean-variance optimization and other portfolio construction methods.",
+    "category": "Risk Management",
+    "related_terms": ["Covariance", "Correlation", "Mean-Variance Optimization"]
+  },
+  {
+    "term": "Value at Risk (VaR)",
+    "definition": "A statistical measure that estimates the maximum potential loss of a portfolio over a specified time period at a given confidence level. For example, a 1-day 95% VaR of $1M means there is a 5% chance of losing more than $1M in one day.",
+    "category": "Risk Management",
+    "related_terms": ["Maximum Drawdown", "Risk", "Standard Deviation (Finance)"]
+  },
+  {
+    "term": "Maximum Drawdown",
+    "definition": "The largest peak-to-trough decline in the value of a portfolio over a specified period. It is a worst-case measure of downside risk and is commonly used to evaluate strategy robustness.",
+    "category": "Risk Management",
+    "related_terms": ["Drawdown", "Value at Risk", "Risk"]
+  },
+  {
+    "term": "Risk-Free Rate",
+    "definition": "The theoretical rate of return on an investment with zero risk, typically proxied by the yield on short-term government securities like U.S. Treasury bills. It serves as the baseline for calculating excess returns.",
+    "category": "Risk Management",
+    "related_terms": ["Sharpe Ratio", "Risk Premium", "Rho"]
+  },
+  {
+    "term": "Dollar-Duration",
+    "definition": "A measure of the change in a bond's price for a one-percentage-point change in yield, expressed in dollar terms. It is used to match or hedge interest rate exposures across fixed-income portfolios.",
+    "category": "Risk Management",
+    "related_terms": ["Duration", "Convexity", "Hedge Ratio"]
+  },
+  {
+    "term": "Convexity",
+    "definition": "A measure of the curvature of the relationship between bond prices and yields. Convexity captures the non-linear component of price changes and improves duration-based estimates for large yield changes.",
+    "category": "Risk Management",
+    "related_terms": ["Duration", "Dollar-Duration"]
+  },
+  {
+    "term": "Duration",
+    "definition": "A measure of the sensitivity of a bond's price to changes in interest rates, expressed in years. Modified duration estimates the percentage change in price for a one-percentage-point change in yield.",
+    "category": "Risk Management",
+    "related_terms": ["Dollar-Duration", "Convexity", "Risk-Free Rate"]
+  },
+  {
+    "term": "Hedge Ratio",
+    "definition": "The ratio of the size of a hedging position to the size of the position being hedged. In options, the delta is commonly used as the hedge ratio to determine how many units of the underlying to hold.",
+    "category": "Risk Management",
+    "related_terms": ["Delta-Hedging", "Delta", "Hedging"]
+  },
+  {
+    "term": "Delta-Hedging",
+    "definition": "A dynamic hedging strategy that adjusts the position in the underlying asset to maintain a delta-neutral portfolio. As delta changes with the underlying price, the hedge must be continuously rebalanced.",
+    "category": "Risk Management",
+    "related_terms": ["Delta", "Hedge Ratio", "Gamma", "Hedging"]
+  },
+  {
+    "term": "Risk Premium",
+    "definition": "The expected return on an asset in excess of the risk-free rate, serving as compensation for bearing risk. The equity risk premium is the excess return demanded for investing in stocks over risk-free assets.",
+    "category": "Risk Management",
+    "related_terms": ["Risk-Free Rate", "Systematic Risk", "Alpha"]
+  },
+  {
+    "term": "Tail Risk",
+    "definition": "The risk of extreme price movements that fall in the tails of the probability distribution, beyond what normal distributions would predict. Tail risk events are rare but can cause catastrophic losses.",
+    "category": "Risk Management",
+    "related_terms": ["Value at Risk", "Normal Distribution", "Risk", "Maximum Drawdown"]
+  },
+  {
+    "term": "Stress Testing",
+    "definition": "The process of evaluating how a portfolio performs under extreme or hypothetical adverse market scenarios, such as market crashes, interest rate spikes, or liquidity crises.",
+    "category": "Risk Management",
+    "related_terms": ["Value at Risk", "Maximum Drawdown", "Tail Risk", "Backtesting"]
+  },
+  {
+    "term": "Expected Value",
+    "definition": "The probability-weighted average of all possible outcomes of a random variable. In trading, it represents the average payoff of a strategy if repeated many times under the same conditions.",
+    "category": "Mathematical",
+    "related_terms": ["Variance", "Normal Distribution", "Payoff"]
+  },
+  {
+    "term": "Variance",
+    "definition": "A measure of the dispersion of a set of values around their mean, calculated as the average of the squared deviations from the mean. In finance, the variance of returns quantifies investment risk.",
+    "category": "Mathematical",
+    "related_terms": ["Standard Deviation", "Covariance", "Expected Value"]
+  },
+  {
+    "term": "Standard Deviation",
+    "definition": "The square root of the variance, providing a measure of dispersion in the same units as the original data. In finance, annualized standard deviation of returns is the most common measure of volatility.",
+    "category": "Mathematical",
+    "related_terms": ["Variance", "Volatility", "Normal Distribution"]
+  },
+  {
+    "term": "Normal Distribution",
+    "definition": "A symmetric, bell-shaped probability distribution defined by its mean and standard deviation. Many financial models assume returns are normally distributed, though actual returns often exhibit fat tails and skewness.",
+    "category": "Mathematical",
+    "related_terms": ["Standard Deviation", "Z-Score", "Expected Value", "Variance"]
+  },
+  {
+    "term": "Z-Score",
+    "definition": "The number of standard deviations a data point is from the mean of a distribution. In pairs trading, z-scores of the price spread are used to generate entry and exit signals.",
+    "category": "Mathematical",
+    "related_terms": ["Standard Deviation", "Normal Distribution", "Mean-Reversion", "Pairs Trading"]
+  },
+  {
+    "term": "Regression",
+    "definition": "A statistical method for estimating the relationship between a dependent variable and one or more independent variables. Linear regression is widely used in finance for factor modeling and beta estimation.",
+    "category": "Mathematical",
+    "related_terms": ["Alpha", "Beta", "Cross-Sectional", "Time Series"]
+  },
+  {
+    "term": "Optimization",
+    "definition": "The mathematical process of finding the best solution from a set of feasible alternatives, typically by maximizing or minimizing an objective function subject to constraints. Portfolio optimization seeks to maximize return for a given risk level.",
+    "category": "Mathematical",
+    "related_terms": ["Mean-Variance Optimization", "Objective Function", "Portfolio"]
+  },
+  {
+    "term": "Mean-Variance Optimization",
+    "definition": "A portfolio construction technique introduced by Harry Markowitz that selects asset weights to maximize expected return for a given level of variance (risk), or equivalently to minimize risk for a target return.",
+    "category": "Mathematical",
+    "related_terms": ["Portfolio", "Covariance Matrix", "Sharpe Ratio", "Optimization"]
+  },
+  {
+    "term": "Cross-Sectional",
+    "definition": "A type of analysis that compares data across multiple entities (e.g., stocks) at a single point in time. Cross-sectional momentum ranks all stocks by past returns at each rebalancing date to form portfolios.",
+    "category": "Mathematical",
+    "related_terms": ["Time Series", "Regression", "Momentum"]
+  },
+  {
+    "term": "Time Series",
+    "definition": "A sequence of data points measured at successive points in time. Time series analysis in trading involves modeling and forecasting price movements, volatility, and correlations over time.",
+    "category": "Mathematical",
+    "related_terms": ["Cross-Sectional", "Regression", "Moving Average (SMA/EMA)"]
+  },
+  {
+    "term": "Log Return",
+    "definition": "The natural logarithm of the ratio of the current price to the previous price. Log returns are additive across time periods and approximately normally distributed, making them convenient for statistical analysis.",
+    "category": "Mathematical",
+    "related_terms": ["Return", "Normal Distribution", "Cumulative Return"]
+  },
+  {
+    "term": "Monte Carlo Simulation",
+    "definition": "A computational technique that uses repeated random sampling to estimate the probability distributions of possible outcomes. In finance, it is used for option pricing, risk assessment, and portfolio analysis.",
+    "category": "Mathematical",
+    "related_terms": ["Normal Distribution", "Value at Risk", "Black-Scholes Model"]
+  },
+  {
+    "term": "Stochastic Process",
+    "definition": "A mathematical model describing a collection of random variables evolving over time. Stock prices are commonly modeled as stochastic processes, such as geometric Brownian motion in the Black-Scholes framework.",
+    "category": "Mathematical",
+    "related_terms": ["Black-Scholes Model", "Normal Distribution", "Time Series"]
+  },
+  {
+    "term": "Bollinger Bands",
+    "definition": "A technical analysis indicator consisting of a middle band (simple moving average) and upper and lower bands set a specified number of standard deviations away. Prices touching the outer bands may signal overbought or oversold conditions.",
+    "category": "Technical Analysis",
+    "related_terms": ["Moving Average (SMA/EMA)", "Standard Deviation", "Support", "Resistance"]
+  },
+  {
+    "term": "MACD",
+    "definition": "Moving Average Convergence Divergence, a trend-following momentum indicator calculated as the difference between two exponential moving averages (typically 12-period and 26-period). A signal line (9-period EMA of MACD) generates trade signals on crossovers.",
+    "category": "Technical Analysis",
+    "related_terms": ["Moving Average (SMA/EMA)", "Momentum", "Golden Cross", "Death Cross"]
+  },
+  {
+    "term": "Candlestick Chart",
+    "definition": "A type of price chart that displays the open, high, low, and close prices for a given period. Candlestick patterns are used in technical analysis to identify potential reversals and continuations.",
+    "category": "Technical Analysis",
+    "related_terms": ["Volume", "Support", "Resistance"]
+  },
+  {
+    "term": "Trend",
+    "definition": "The general direction of a market or asset price over time. An uptrend consists of higher highs and higher lows; a downtrend consists of lower highs and lower lows.",
+    "category": "Technical Analysis",
+    "related_terms": ["Moving Average (SMA/EMA)", "Support", "Resistance", "Momentum"]
+  },
+  {
+    "term": "Breakout",
+    "definition": "A price movement through an identified level of support or resistance, usually accompanied by increased volume. Breakouts are used to signal the start of a new trend or acceleration of an existing one.",
+    "category": "Technical Analysis",
+    "related_terms": ["Support", "Resistance", "Channel", "Volume"]
+  },
+  {
+    "term": "Fibonacci Retracement",
+    "definition": "A technical analysis tool that uses horizontal lines at key Fibonacci ratios (23.6%, 38.2%, 50%, 61.8%) to identify potential support and resistance levels where price may reverse during a pullback.",
+    "category": "Technical Analysis",
+    "related_terms": ["Support", "Resistance", "Trend"]
+  },
+  {
+    "term": "Average True Range (ATR)",
+    "definition": "A technical indicator measuring market volatility by decomposing the entire range of an asset's price for a given period. ATR is commonly used for setting stop-loss levels and position sizing.",
+    "category": "Technical Analysis",
+    "related_terms": ["Volatility", "Stop-Loss", "Bollinger Bands"]
+  },
+  {
+    "term": "Stochastic Oscillator",
+    "definition": "A momentum indicator that compares a security's closing price to its price range over a specified period, generating values between 0 and 100. Readings above 80 suggest overbought conditions, while readings below 20 suggest oversold.",
+    "category": "Technical Analysis",
+    "related_terms": ["Relative Strength Index", "Momentum", "Bollinger Bands"]
+  },
+  {
+    "term": "Order Book",
+    "definition": "An electronic list of all outstanding buy and sell orders for a specific security, organized by price level. The order book provides transparency into market depth and supply/demand dynamics.",
+    "category": "Market Structure",
+    "related_terms": ["Bid-Ask Spread", "Liquidity", "Market Order", "Limit Order"]
+  },
+  {
+    "term": "Market Maker",
+    "definition": "A firm or individual that continuously quotes both buy and sell prices for a security, providing liquidity to the market. Market makers profit from the bid-ask spread and are obligated to maintain orderly markets.",
+    "category": "Market Structure",
+    "related_terms": ["Bid-Ask Spread", "Liquidity", "Order Book"]
+  },
+  {
+    "term": "Exchange",
+    "definition": "An organized marketplace where securities, commodities, derivatives, and other financial instruments are traded. Exchanges provide price discovery, standardization, and counterparty risk management through clearinghouses.",
+    "category": "Market Structure",
+    "related_terms": ["Market Maker", "Order Book", "Liquidity"]
+  },
+  {
+    "term": "Dark Pool",
+    "definition": "A private trading venue where institutional investors can execute large orders without exposing them to the public market. Dark pools reduce market impact but limit pre-trade transparency.",
+    "category": "Market Structure",
+    "related_terms": ["Exchange", "Liquidity", "Market Microstructure"]
+  },
+  {
+    "term": "Clearinghouse",
+    "definition": "An intermediary between buyers and sellers in financial markets that ensures the smooth settlement of trades. Clearinghouses manage counterparty risk by guaranteeing the performance of each transaction.",
+    "category": "Market Structure",
+    "related_terms": ["Exchange", "Margin", "Settlement"]
+  },
+  {
+    "term": "Settlement",
+    "definition": "The process of transferring securities and funds between the buyer and seller to complete a trade. In U.S. equities, settlement typically occurs on a T+1 basis (one business day after the trade date).",
+    "category": "Market Structure",
+    "related_terms": ["Clearinghouse", "Exchange", "Transaction Costs"]
+  },
+  {
+    "term": "Open Interest",
+    "definition": "The total number of outstanding option or futures contracts that have not been settled or closed. Open interest reflects market activity and liquidity in derivatives markets and changes as new contracts are created or existing ones are closed.",
+    "category": "Market Structure",
+    "related_terms": ["Volume", "Liquidity", "Call Option", "Put Option"]
+  },
+  {
+    "term": "Early Exercise",
+    "definition": "The exercise of an American-style option before its expiration date. Early exercise may be optimal for deep in-the-money puts or calls on stocks about to pay dividends.",
+    "category": "Options",
+    "related_terms": ["American Option", "Exercise", "Intrinsic Value", "Dividend"]
+  },
+  {
+    "term": "Pin Risk",
+    "definition": "The risk that the underlying asset's price settles very near the strike price at expiration, creating uncertainty about whether the option will be exercised. This is particularly concerning for short option positions.",
+    "category": "Options",
+    "related_terms": ["At-the-Money", "Exercise", "Expiration", "Writing an Option"]
+  },
+  {
+    "term": "Assignment",
+    "definition": "The process by which an option writer is notified that the option has been exercised and they must fulfill the obligation. Call writers must sell shares; put writers must buy shares at the strike price.",
+    "category": "Options",
+    "related_terms": ["Exercise", "Writing an Option", "Short Position"]
+  }
+]
