@@ -4,7 +4,7 @@ A full-stack web application for mastering trading strategies from the "151 Trad
 
 ## Live Website
 
-**🌐 [https://trading-strategies.vercel.app](https://trading-strategies.vercel.app)**
+**🌐 [https://trading-strategy-nine.vercel.app](https://trading-strategy-nine.vercel.app)**
 
 ## Original Creator
 
