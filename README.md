@@ -1,56 +1,73 @@
 # Trading Strategy Trainer
 
-A full-stack web application for mastering trading strategies from the "151 Trading Strategies" paper by Kakushadze & Serur. Covers 79 options and stock strategies with interactive lessons, quizzes, a payoff visualizer, and a searchable glossary.
+A full-stack web application for mastering trading strategies from the "151 Trading Strategies" paper by Kakushadze & Serur. Covers options and stock strategies with interactive lessons, quizzes, a payoff visualizer, and a searchable glossary.
 
-## Quick Start
+## Live Website
 
-### Backend (FastAPI)
+**🌐 [https://trading-strategies.vercel.app](https://trading-strategies.vercel.app)**
+
+## Original Creator
+
+This project was originally created by [KellanFinney](https://github.com/KellanFinney) as a Python FastAPI backend with React frontend.
+
+## Conversion
+
+This version has been converted to a single **Next.js 16** application with:
+- All data stored locally in JSON files (no database required)
+- User progress persisted in browser **localStorage**
+- Deployed to **Vercel** for free hosting
+
+## Quick Start (Local Development)
 
 ```bash
-cd backend
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-uvicorn app.main:app --reload --port 8000
-```
-
-### Frontend (React + Vite)
-
-```bash
-cd frontend
+cd trading-app
 npm install
 npm run dev
 ```
 
-Open **http://localhost:5173** in your browser.
+Open **http://localhost:3000** in your browser.
 
 ## Features
 
-- **Strategy Library** — Browse 79 strategies (58 options + 21 stocks) with filters, formulas (KaTeX), and detailed descriptions
-- **Learning Path** — 14 progressive lessons across Options and Stocks modules, from beginner to advanced
-- **Quiz Engine** — Multiple-choice quizzes for each lesson with scoring, explanations, and pass/fail tracking
+- **Strategy Library** — Browse strategies with filters, formulas (KaTeX), and detailed descriptions
+- **Learning Path** — Progressive lessons across Options and Stocks modules, from beginner to advanced
+- **Quiz Engine** — Multiple-choice quizzes for each lesson with scoring and pass/fail tracking
 - **Payoff Visualizer** — Interactive options payoff diagram builder with presets (covered call, iron condor, butterfly, etc.)
-- **Glossary** — 156 searchable trading terms with category filtering and alphabetical index
-- **Progress Dashboard** — Track strategies studied, lessons completed, quiz scores, and overall mastery
+- **Glossary** — Searchable trading terms with category filtering
+- **Progress Dashboard** — Track strategies studied, lessons completed, quiz scores
 
 ## Tech Stack
 
-- **Backend**: Python 3.11+, FastAPI, SQLAlchemy, SQLite, NumPy
-- **Frontend**: React 18, Vite, Plotly.js, KaTeX
-- **Database**: SQLite (auto-created and seeded on first startup)
+- **Framework**: Next.js 16 (App Router)
+- **Language**: TypeScript
+- **Math Rendering**: KaTeX
+- **Charts**: Plotly.js
+- **Styling**: Custom CSS (dark theme)
+- **Deployment**: Vercel
+
+## Project Structure
+
+```
+trading-app/
+├── app/                    # Next.js App Router pages
+│   ├── api/               # API routes
+│   ├── strategies/        # Strategy library pages
+│   ├── lessons/          # Learning path pages
+│   ├── quiz/             # Quiz pages
+│   ├── visualizer/       # Payoff visualizer
+│   └── glossary/         # Glossary page
+├── components/            # React components
+├── lib/                   # Hooks and utilities
+├── data/                  # Seed data (JSON)
+└── package.json
+```
 
 ## API Endpoints
 
 | Endpoint | Method | Description |
 |---|---|---|
-| `/api/strategies/` | GET | List/filter strategies |
-| `/api/strategies/{id}` | GET | Strategy detail |
-| `/api/strategies/filters` | GET | Available filter values |
-| `/api/lessons/` | GET | List lessons |
-| `/api/lessons/{id}` | GET | Lesson detail with content |
-| `/api/quizzes/{id}` | GET | Quiz questions |
-| `/api/quizzes/{id}/submit` | POST | Submit quiz answers |
-| `/api/glossary/` | GET | Search glossary terms |
-| `/api/progress/` | GET | User progress summary |
-| `/api/progress/study` | POST | Mark strategy as studied |
+| `/api/strategies` | GET | List/filter strategies |
+| `/api/lessons` | GET | List lessons |
+| `/api/quizzes` | GET/POST | Get quiz / submit answers |
+| `/api/glossary` | GET | Search glossary terms |
 | `/api/simulator/payoff` | POST | Calculate options payoff |

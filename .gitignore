@@ -24,3 +24,5 @@ frontend/dist/
 # Env
 .env
 .env.local
+
+pnpm-lock.yaml
